@@ -42,6 +42,7 @@ body {
         .container .search div:hover + ul {
           display: block; }
     .container .search ul {
+      display: none;
       margin: -.8rem 0 0 0; }
       .container .search ul:hover {
         display: block; }
