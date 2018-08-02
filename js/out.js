@@ -19260,7 +19260,14 @@ var ListDisplay = function (_React$Component8) {
                         _react2.default.createElement(
                             'p',
                             { style: { fontSize: '1.75rem' } },
-                            el.description
+                            el.description,
+                            ' ',
+                            _react2.default.createElement(
+                                'a',
+                                { href: '' },
+                                '...czytaj wiecej'
+                            ),
+                            ' '
                         ),
                         ' ',
                         _react2.default.createElement('br', null),
@@ -19271,6 +19278,12 @@ var ListDisplay = function (_React$Component8) {
                         ),
                         ' ',
                         _react2.default.createElement('br', null),
+                        _react2.default.createElement(
+                            'div',
+                            { style: Number(el.ratting) === 1 ? { backgroundColor: 'red', width: '30px', height: '30px' } : Number(el.ratting) === 2 ? { backgroundColor: 'orange', width: '30px', height: '30px' } : Number(el.ratting) === 3 ? { backgroundColor: 'yellow', width: '30px', height: '30px' } : Number(el.ratting) === 4 ? { backgroundColor: 'green', width: '30px', height: '30px' } : Number(el.ratting) === 5 && { backgroundColor: 'grey', width: '30px', height: '30px' } },
+                            el.ratting,
+                            ' + '
+                        ),
                         _react2.default.createElement(
                             'button',
                             { value: 'Dodaj do Listy' },
