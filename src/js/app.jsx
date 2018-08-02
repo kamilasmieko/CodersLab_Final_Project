@@ -30,7 +30,8 @@ class MainComponent extends React.Component{
         this.state = {
             attrPerCity: null,
             type: null,
-            min_age: 0,
+            min_age: null,
+            showAllAttr: true,
             isRaining: false,
             selectionList: null,
             cityLat: null,
@@ -39,7 +40,7 @@ class MainComponent extends React.Component{
     }
     render(){
         return <div className="background_img" style={{background: "url('src/img/banana_pattern.jpg')no-repeat center /cover"}}>
-                    <MainSearch getCityId={this.getCityId} getAttrType={this.getAttrType} getIsRainingCond={this.getIsRainingCond} getMinAge={this.getMinAge} selectionList={this.state.selectionList}/>
+                    <MainSearch getCityId={this.getCityId} getAttrType={this.getAttrType} getIsRainingCond={this.getIsRainingCond} getMinAge={this.getMinAge} selectionList={this.state.selectionList} getShowAllAttr={this.setShowAllAttr} />
                     <DisplayResults list={this.state}/>
                     <Footer />
                 </div>
@@ -68,7 +69,11 @@ class MainComponent extends React.Component{
         this.setState({isRaining: condition});
     }
     getMinAge = (age) =>{
+        console.log('setMinAge: ', age);
         this.setState({min_age: age});
+    }
+    setShowAllAttr =(param)=>{
+        console.log('showAllAttr: ', param);
     }
 }
 
@@ -92,7 +97,7 @@ class MainSearch extends React.Component{
 
                     <AttractionsSearch getAttrType={this.getAttrType} style={this.state.isCitySelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
 
-                    <ByAgeSearch getMinAge={this.getMinAge} selectionList={this.props.selectionList} style={this.state.isAttrSelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
+                    <ByAgeSearch getMinAge={this.getMinAge} getShowAllAttr={this.getShowAllAttr} selectionList={this.props.selectionList} style={this.state.isAttrSelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
 
                     {/*<div className="search">*/}
                         {/*<p> "Najwieksza baza atrakcji i okolicznych placow zabaw. Z nami nie bedziesz sie nudzic nawet gdy padadeszcz!" </p>*/}
@@ -122,6 +127,9 @@ class MainSearch extends React.Component{
     }
     getMinAge = (param) =>{
         this.state.isAttrSelected && typeof(this.props.getMinAge) === 'function' && this.props.getMinAge(param);
+    }
+    getShowAllAttr = (param) =>{
+        typeof(this.props.getShowAllAttr) === 'function' && this.props.getShowAllAttr(param);
     }
 }
 
@@ -184,20 +192,28 @@ class ByAgeSearch extends React.Component{
         super(props);
 
         this.state = {
-            value: 0
+            value: 0,
+            isChecked: true,
+            // isAgeChecked: false
         }
     }
     render(){
         return  <div className="search" style={this.props.style}>
-                    <input type="checkbox" >Wszystkie atrakcje</input>
-                    <p> Okresl minimalny wiek pociechy: </p>
-                        <input type="range" min="0" max="14" value={this.state.value} onChange={(e) => this.handleSlide(e.target.value)} />
-                        <span>od {this.state.value} lat</span>
+                    <input type="checkbox" value={!this.state.isChecked} onChange={this.handleCheckbox} checked={!this.state.isChecked? true : false} style={{width: '25px', height: '25px'}} /><p> Okresl minimalny wiek pociechy: </p>
+                    <div style={this.state.isChecked? {visibility: 'hidden'} : {visibility: 'visible'}}>
+                        <span>Od: </span><input type="range" min="0" max="14" value={this.state.value} onChange={(e) => this.handleSlide(e.target.value)} />
+                        <p>od {this.state.value} lat</p>
+                    </div>
+                    <input type="checkbox" value={this.state.isChecked} onChange={this.handleCheckbox} checked={this.state.isChecked? true : false} style={{width: '25px', height: '25px'}} /><p>Wszystkie atrakcje</p>
                 </div>
     }
     handleSlide = (e) =>{
-        this.setState({value: e});
+        this.setState({value: e}, () => this.setState({isChecked: false}));
         typeof(this.props.getMinAge) === 'function' && this.props.getMinAge(e);
+    }
+    handleCheckbox = (e) =>{
+        this.setState({isChecked: !this.state.isChecked}, () => typeof(this.props.getShowAllAttr) === 'function' && this.props.getShowAllAttr(this.state.isChecked));
+        typeof(this.props.getMinAge) === 'function' && this.props.getMinAge(0);
     }
 }
 
@@ -226,6 +242,10 @@ class DisplayResults extends React.Component{
         }else{
             this.props.list.selectionList != null && this.props.list.selectionList.forEach((select) => {
                 if(select.age_from <= this.props.list.min_age){
+                    this.props.list.isRaining?
+                        this.props.list.isRaining === select.indoor && listToDisplay.push(select) :
+                        listToDisplay.push(select);
+                }else if(this.props.list.showAllAttr == true){
                     this.props.list.isRaining?
                         this.props.list.isRaining === select.indoor && listToDisplay.push(select) :
                         listToDisplay.push(select);

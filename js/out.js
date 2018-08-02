@@ -18793,13 +18793,19 @@ var MainComponent = function (_React$Component) {
         };
 
         _this.getMinAge = function (age) {
+            console.log('setMinAge: ', age);
             _this.setState({ min_age: age });
+        };
+
+        _this.setShowAllAttr = function (param) {
+            console.log('showAllAttr: ', param);
         };
 
         _this.state = {
             attrPerCity: null,
             type: null,
-            min_age: 0,
+            min_age: null,
+            showAllAttr: true,
             isRaining: false,
             selectionList: null,
             cityLat: null,
@@ -18814,7 +18820,7 @@ var MainComponent = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'background_img', style: { background: "url('src/img/banana_pattern.jpg')no-repeat center /cover" } },
-                _react2.default.createElement(MainSearch, { getCityId: this.getCityId, getAttrType: this.getAttrType, getIsRainingCond: this.getIsRainingCond, getMinAge: this.getMinAge, selectionList: this.state.selectionList }),
+                _react2.default.createElement(MainSearch, { getCityId: this.getCityId, getAttrType: this.getAttrType, getIsRainingCond: this.getIsRainingCond, getMinAge: this.getMinAge, selectionList: this.state.selectionList, getShowAllAttr: this.setShowAllAttr }),
                 _react2.default.createElement(DisplayResults, { list: this.state }),
                 _react2.default.createElement(Footer, null)
             );
@@ -18868,6 +18874,10 @@ var MainSearch = function (_React$Component2) {
             _this3.state.isAttrSelected && typeof _this3.props.getMinAge === 'function' && _this3.props.getMinAge(param);
         };
 
+        _this3.getShowAllAttr = function (param) {
+            typeof _this3.props.getShowAllAttr === 'function' && _this3.props.getShowAllAttr(param);
+        };
+
         _this3.state = {
             attractions: null,
             isCitySelected: false,
@@ -18889,7 +18899,7 @@ var MainSearch = function (_React$Component2) {
                 ),
                 _react2.default.createElement(CitySearch, { attractions: this.state.attractions, getCityId: this.getCityId }),
                 _react2.default.createElement(AttractionsSearch, { getAttrType: this.getAttrType, style: this.state.isCitySelected ? { visibility: 'visible' } : { visibility: 'hidden' } }),
-                _react2.default.createElement(ByAgeSearch, { getMinAge: this.getMinAge, selectionList: this.props.selectionList, style: this.state.isAttrSelected ? { visibility: 'visible' } : { visibility: 'hidden' } }),
+                _react2.default.createElement(ByAgeSearch, { getMinAge: this.getMinAge, getShowAllAttr: this.getShowAllAttr, selectionList: this.props.selectionList, style: this.state.isAttrSelected ? { visibility: 'visible' } : { visibility: 'hidden' } }),
                 _react2.default.createElement(IsRainingOption, { getIsRainingCond: this.getIsRainingCond, style: this.state.isCitySelected ? { visibility: 'visible' } : { visibility: 'hidden' } })
             );
         }
@@ -19034,12 +19044,23 @@ var ByAgeSearch = function (_React$Component5) {
         var _this9 = _possibleConstructorReturn(this, (ByAgeSearch.__proto__ || Object.getPrototypeOf(ByAgeSearch)).call(this, props));
 
         _this9.handleSlide = function (e) {
-            _this9.setState({ value: e });
+            _this9.setState({ value: e }, function () {
+                return _this9.setState({ isChecked: false });
+            });
             typeof _this9.props.getMinAge === 'function' && _this9.props.getMinAge(e);
         };
 
+        _this9.handleCheckbox = function (e) {
+            _this9.setState({ isChecked: !_this9.state.isChecked }, function () {
+                return typeof _this9.props.getShowAllAttr === 'function' && _this9.props.getShowAllAttr(_this9.state.isChecked);
+            });
+            typeof _this9.props.getMinAge === 'function' && _this9.props.getMinAge(0);
+        };
+
         _this9.state = {
-            value: 0
+            value: 0,
+            isChecked: true
+            // isAgeChecked: false
         };
         return _this9;
     }
@@ -19052,25 +19073,36 @@ var ByAgeSearch = function (_React$Component5) {
             return _react2.default.createElement(
                 'div',
                 { className: 'search', style: this.props.style },
-                _react2.default.createElement(
-                    'input',
-                    { type: 'checkbox' },
-                    'Wszystkie atrakcje'
-                ),
+                _react2.default.createElement('input', { type: 'checkbox', value: !this.state.isChecked, onChange: this.handleCheckbox, checked: !this.state.isChecked ? true : false, style: { width: '25px', height: '25px' } }),
                 _react2.default.createElement(
                     'p',
                     null,
                     ' Okresl minimalny wiek pociechy: '
                 ),
-                _react2.default.createElement('input', { type: 'range', min: '0', max: '14', value: this.state.value, onChange: function onChange(e) {
-                        return _this10.handleSlide(e.target.value);
-                    } }),
                 _react2.default.createElement(
-                    'span',
+                    'div',
+                    { style: this.state.isChecked ? { visibility: 'hidden' } : { visibility: 'visible' } },
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        'Od: '
+                    ),
+                    _react2.default.createElement('input', { type: 'range', min: '0', max: '14', value: this.state.value, onChange: function onChange(e) {
+                            return _this10.handleSlide(e.target.value);
+                        } }),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'od ',
+                        this.state.value,
+                        ' lat'
+                    )
+                ),
+                _react2.default.createElement('input', { type: 'checkbox', value: this.state.isChecked, onChange: this.handleCheckbox, checked: this.state.isChecked ? true : false, style: { width: '25px', height: '25px' } }),
+                _react2.default.createElement(
+                    'p',
                     null,
-                    'od ',
-                    this.state.value,
-                    ' lat'
+                    'Wszystkie atrakcje'
                 )
             );
         }
@@ -19143,6 +19175,8 @@ var DisplayResults = function (_React$Component7) {
             } else {
                 this.props.list.selectionList != null && this.props.list.selectionList.forEach(function (select) {
                     if (select.age_from <= _this14.props.list.min_age) {
+                        _this14.props.list.isRaining ? _this14.props.list.isRaining === select.indoor && listToDisplay.push(select) : listToDisplay.push(select);
+                    } else if (_this14.props.list.showAllAttr == true) {
                         _this14.props.list.isRaining ? _this14.props.list.isRaining === select.indoor && listToDisplay.push(select) : listToDisplay.push(select);
                     }
                 });
