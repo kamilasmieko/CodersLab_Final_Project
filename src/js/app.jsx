@@ -194,7 +194,6 @@ class ByAgeSearch extends React.Component{
         this.state = {
             value: 0,
             isChecked: true,
-            // isAgeChecked: false
         }
     }
     render(){
@@ -213,7 +212,7 @@ class ByAgeSearch extends React.Component{
     }
     handleCheckbox = (e) =>{
         this.setState({isChecked: !this.state.isChecked}, () => typeof(this.props.getShowAllAttr) === 'function' && this.props.getShowAllAttr(this.state.isChecked));
-        typeof(this.props.getMinAge) === 'function' && this.props.getMinAge(0);
+        typeof(this.props.getMinAge) === 'function' && this.props.getMinAge(this.state.value);
     }
 }
 
@@ -234,24 +233,25 @@ class IsRainingOption extends React.Component{
 
 class DisplayResults extends React.Component{
     render(){
-
         const listToDisplay = [];
 
         if(this.props.list.type === 'baby_changing_st'){
             listToDisplay.push(...this.props.list.selectionList);
         }else{
             this.props.list.selectionList != null && this.props.list.selectionList.forEach((select) => {
-                if(select.age_from <= this.props.list.min_age){
+                if(Number(select.age_from) <= this.props.list.min_age){
                     this.props.list.isRaining?
                         this.props.list.isRaining === select.indoor && listToDisplay.push(select) :
                         listToDisplay.push(select);
-                }else if(this.props.list.showAllAttr == true){
+                }else if(this.props.list.min_age == null){
                     this.props.list.isRaining?
                         this.props.list.isRaining === select.indoor && listToDisplay.push(select) :
                         listToDisplay.push(select);
                 }
             })
         }
+
+        listToDisplay.sort((a,b) => (b.age_from > a.age_from) ? 1 : ((a.age_from > b.age_from) ? -1 : 0));
 
         return <div>
             {!this.props.list.selectionList? null : <ListDisplay list={listToDisplay}/>}

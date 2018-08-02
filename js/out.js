@@ -19054,13 +19054,12 @@ var ByAgeSearch = function (_React$Component5) {
             _this9.setState({ isChecked: !_this9.state.isChecked }, function () {
                 return typeof _this9.props.getShowAllAttr === 'function' && _this9.props.getShowAllAttr(_this9.state.isChecked);
             });
-            typeof _this9.props.getMinAge === 'function' && _this9.props.getMinAge(0);
+            typeof _this9.props.getMinAge === 'function' && _this9.props.getMinAge(_this9.state.value);
         };
 
         _this9.state = {
             value: 0,
             isChecked: true
-            // isAgeChecked: false
         };
         return _this9;
     }
@@ -19174,13 +19173,17 @@ var DisplayResults = function (_React$Component7) {
                 listToDisplay.push.apply(listToDisplay, _toConsumableArray(this.props.list.selectionList));
             } else {
                 this.props.list.selectionList != null && this.props.list.selectionList.forEach(function (select) {
-                    if (select.age_from <= _this14.props.list.min_age) {
+                    if (Number(select.age_from) <= _this14.props.list.min_age) {
                         _this14.props.list.isRaining ? _this14.props.list.isRaining === select.indoor && listToDisplay.push(select) : listToDisplay.push(select);
-                    } else if (_this14.props.list.showAllAttr == true) {
+                    } else if (_this14.props.list.min_age == null) {
                         _this14.props.list.isRaining ? _this14.props.list.isRaining === select.indoor && listToDisplay.push(select) : listToDisplay.push(select);
                     }
                 });
             }
+
+            listToDisplay.sort(function (a, b) {
+                return b.age_from > a.age_from ? 1 : a.age_from > b.age_from ? -1 : 0;
+            });
 
             return _react2.default.createElement(
                 'div',
