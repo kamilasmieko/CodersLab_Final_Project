@@ -19207,13 +19207,15 @@ var SortingOpt = function (_React$Component8) {
         var _this15 = _possibleConstructorReturn(this, (SortingOpt.__proto__ || Object.getPrototypeOf(SortingOpt)).call(this, props));
 
         _this15.setValue = function (id) {
-            console.log(id);
-            var index;
-            _this15.state.val.indexOf(id) > -1 ? _this15.setState(function (prevState) {
-                return { val: prevState.val.splice(_this15.state.val.indexOf(id), 0) };
-            }) : _this15.setState(function (prevState) {
-                return { val: [].concat(_toConsumableArray(prevState.val), [id]) };
-            });
+            if (_this15.state.val.indexOf(id) <= -1) {
+                _this15.setState(function (prevState) {
+                    return { val: [].concat(_toConsumableArray(prevState.val), [id]) };
+                });
+            } else {
+                _this15.setState(function (prevState) {
+                    return prevState.val.splice(_this15.state.val.indexOf(id), 1), { val: prevState.val };
+                });
+            }
         };
 
         _this15.state = {
@@ -19239,7 +19241,7 @@ var SortingOpt = function (_React$Component8) {
                 ),
                 _react2.default.createElement('input', { type: 'checkbox', value: 3, onChange: function onChange(e) {
                         return _this16.setValue(e.target.value);
-                    }, checked: this.state.isChecked }),
+                    } }),
                 ' ',
                 _react2.default.createElement(
                     'div',
@@ -19248,7 +19250,7 @@ var SortingOpt = function (_React$Component8) {
                 ),
                 _react2.default.createElement('input', { type: 'checkbox', value: 4, onChange: function onChange(e) {
                         return _this16.setValue(e.target.value);
-                    }, checked: this.state.isChecked }),
+                    } }),
                 ' ',
                 _react2.default.createElement(
                     'div',
@@ -19257,7 +19259,7 @@ var SortingOpt = function (_React$Component8) {
                 ),
                 _react2.default.createElement('input', { type: 'checkbox', value: 5, onChange: function onChange(e) {
                         return _this16.setValue(e.target.value);
-                    }, checked: this.state.isChecked }),
+                    } }),
                 ' ',
                 _react2.default.createElement(
                     'div',

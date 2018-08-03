@@ -273,16 +273,19 @@ class SortingOpt extends React.Component{
     render(){
         return <div>Sortowanie:
                     <p>Pokaz atrakcje z ocenami: </p>
-                    <input type="checkbox" value={3} onChange={(e) => this.setValue(e.target.value)} checked={this.state.isChecked} /> <div style={{backgroundColor: 'yellow', width: '30px', height: '30px'}}>3+</div>
-                    <input type="checkbox" value={4} onChange={(e) => this.setValue(e.target.value)} checked={this.state.isChecked} /> <div style={{backgroundColor: '#90EE90', width: '30px', height: '30px'}}>4+</div>
-                    <input type="checkbox" value={5} onChange={(e) => this.setValue(e.target.value)} checked={this.state.isChecked} /> <div style={{backgroundColor: 'green', width: '30px', height: '30px'}}>5+</div>
+                    <input type="checkbox" value={3} onChange={(e) => this.setValue(e.target.value)}  /> <div style={{backgroundColor: 'yellow', width: '30px', height: '30px'}}>3+</div>
+                    <input type="checkbox" value={4} onChange={(e) => this.setValue(e.target.value)}  /> <div style={{backgroundColor: '#90EE90', width: '30px', height: '30px'}}>4+</div>
+                    <input type="checkbox" value={5} onChange={(e) => this.setValue(e.target.value)}  /> <div style={{backgroundColor: 'green', width: '30px', height: '30px'}}>5+</div>
                 </div>
     }
     setValue = (id) =>{
-        console.log(id);
-        var index;
-        this.state.val.indexOf(id) > -1? this.setState(prevState => ({val: prevState.val.splice(this.state.val.indexOf(id), 0)})) : this.setState(prevState => ({val: [...prevState.val, id]}));
-
+        if(this.state.val.indexOf(id) <= -1){
+            this.setState(prevState => ({val: [...prevState.val, id]}));
+        }else{
+            this.setState(prevState => (
+                prevState.val.splice(this.state.val.indexOf(id), 1),
+                {val: prevState.val}));
+        }
     }
 }
 
