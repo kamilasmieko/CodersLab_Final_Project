@@ -37,6 +37,22 @@
           "description": "Park Wodny zaprasza. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis doloremque dolorum id quaerat quod ullam veniam voluptate voluptatum? Deserunt, dolores est explicabo labore mollitia nam perspiciatis placeat qui rem tempora!",
           "ratting": "4",
           "website": "http://www.parkwodny.com.pl/"
+        },
+        {
+          "id": 2,
+          "name": "Kolejka Skansenowa (przy Zabytkowej Kopalni Srebra)",
+          "address": "ul. Szczęść Boże 81",
+          "city": "Tarnowskie Góry",
+          "lat": "50.42546845677039",
+          "lng": "18.84908778551403",
+          "pictures": "https://kopalniasrebra.pl/wp-content/uploads/2018/05/INDU-2015-Kopalnia-Srebra-Tarnowskie-G%C3%B3ry-50.jpg",
+          "weather_conditions": "sunny",
+          "indoor": false,
+          "age_from": "2",
+          "time_min": "5",
+          "description": "Mała Kolej Skansenowa to atrakcja nie tylko dla miłośników bardzo wąskich torów, ale całych rodzin. Mimo niewielkich rozmiarów nasza mini wąskotorówka jest w stanie przewieźć nawet 20 osób na raz . Rozstaw szyn wynosi zaledwie 7 i ¼ cala. Trasa przejazdu, która liczy 500 m, wiedzie przez cały Skansen Maszyn Parowych. Jazda tą miniwąskotorówką w otoczeniu zabytkowych maszyn dostarcza niezwykłych przeżyć.",
+          "ratting": "3",
+          "website": "http://kopalniasrebra.pl/"
         }
       ],
       "baby_changing_st": [

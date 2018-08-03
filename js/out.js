@@ -19188,17 +19188,7 @@ var DisplayResults = function (_React$Component7) {
             return _react2.default.createElement(
                 'div',
                 null,
-                !this.props.list.selectionList ? null : _react2.default.createElement(
-                    'div',
-                    null,
-                    'Sortowanie: ',
-                    _react2.default.createElement('input', { type: 'checkbox' }),
-                    _react2.default.createElement(
-                        'span',
-                        null,
-                        ' od A - Z (???)'
-                    )
-                ),
+                !this.props.list.selectionList ? null : _react2.default.createElement(SortingOpt, null),
                 !this.props.list.selectionList ? null : _react2.default.createElement(ListDisplay, { list: listToDisplay }),
                 !this.props.list.selectionList ? null : _react2.default.createElement(MapDisplay, { list: listToDisplay, city: this.props.list })
             );
@@ -19208,8 +19198,81 @@ var DisplayResults = function (_React$Component7) {
     return DisplayResults;
 }(_react2.default.Component);
 
-var ListDisplay = function (_React$Component8) {
-    _inherits(ListDisplay, _React$Component8);
+var SortingOpt = function (_React$Component8) {
+    _inherits(SortingOpt, _React$Component8);
+
+    function SortingOpt(props) {
+        _classCallCheck(this, SortingOpt);
+
+        var _this15 = _possibleConstructorReturn(this, (SortingOpt.__proto__ || Object.getPrototypeOf(SortingOpt)).call(this, props));
+
+        _this15.setValue = function (id) {
+            console.log(id);
+            var index;
+            _this15.state.val.indexOf(id) > -1 ? _this15.setState(function (prevState) {
+                return { val: prevState.val.splice(_this15.state.val.indexOf(id), 0) };
+            }) : _this15.setState(function (prevState) {
+                return { val: [].concat(_toConsumableArray(prevState.val), [id]) };
+            });
+        };
+
+        _this15.state = {
+            val: [],
+            isChecked: false
+        };
+        return _this15;
+    }
+
+    _createClass(SortingOpt, [{
+        key: 'render',
+        value: function render() {
+            var _this16 = this;
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                'Sortowanie:',
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'Pokaz atrakcje z ocenami: '
+                ),
+                _react2.default.createElement('input', { type: 'checkbox', value: 3, onChange: function onChange(e) {
+                        return _this16.setValue(e.target.value);
+                    }, checked: this.state.isChecked }),
+                ' ',
+                _react2.default.createElement(
+                    'div',
+                    { style: { backgroundColor: 'yellow', width: '30px', height: '30px' } },
+                    '3+'
+                ),
+                _react2.default.createElement('input', { type: 'checkbox', value: 4, onChange: function onChange(e) {
+                        return _this16.setValue(e.target.value);
+                    }, checked: this.state.isChecked }),
+                ' ',
+                _react2.default.createElement(
+                    'div',
+                    { style: { backgroundColor: '#90EE90', width: '30px', height: '30px' } },
+                    '4+'
+                ),
+                _react2.default.createElement('input', { type: 'checkbox', value: 5, onChange: function onChange(e) {
+                        return _this16.setValue(e.target.value);
+                    }, checked: this.state.isChecked }),
+                ' ',
+                _react2.default.createElement(
+                    'div',
+                    { style: { backgroundColor: 'green', width: '30px', height: '30px' } },
+                    '5+'
+                )
+            );
+        }
+    }]);
+
+    return SortingOpt;
+}(_react2.default.Component);
+
+var ListDisplay = function (_React$Component9) {
+    _inherits(ListDisplay, _React$Component9);
 
     function ListDisplay() {
         _classCallCheck(this, ListDisplay);
@@ -19233,6 +19296,13 @@ var ListDisplay = function (_React$Component8) {
                             'h3',
                             { style: { color: 'grey' } },
                             el.name
+                        ),
+                        ' ',
+                        _react2.default.createElement('br', null),
+                        _react2.default.createElement(
+                            'p',
+                            { style: { color: 'red' } },
+                            'Attrakcja dostepna od: do:'
                         ),
                         _react2.default.createElement('img', { src: el.indoor ? 'https://cdn3.iconfinder.com/data/icons/logistics/256/Keep_Dry_Symbol-512.png' : 'data:image/png;base64,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', alt: '', style: { width: '30px', height: '30px' } }),
                         _react2.default.createElement(
@@ -19280,9 +19350,9 @@ var ListDisplay = function (_React$Component8) {
                         _react2.default.createElement('br', null),
                         _react2.default.createElement(
                             'div',
-                            { style: Number(el.ratting) === 1 ? { backgroundColor: 'red', width: '30px', height: '30px' } : Number(el.ratting) === 2 ? { backgroundColor: 'orange', width: '30px', height: '30px' } : Number(el.ratting) === 3 ? { backgroundColor: 'yellow', width: '30px', height: '30px' } : Number(el.ratting) === 4 ? { backgroundColor: 'green', width: '30px', height: '30px' } : Number(el.ratting) === 5 && { backgroundColor: 'grey', width: '30px', height: '30px' } },
-                            el.ratting,
-                            ' + '
+                            { style: Number(el.ratting) === 1 ? { backgroundColor: 'red', width: '30px', height: '30px' } : Number(el.ratting) === 2 ? { backgroundColor: 'orange', width: '30px', height: '30px' } : Number(el.ratting) === 3 ? { backgroundColor: 'yellow', width: '30px', height: '30px' } : Number(el.ratting) === 4 ? { backgroundColor: '#90EE90', width: '30px', height: '30px' } : Number(el.ratting) === 5 ? { backgroundColor: 'green', width: '30px', height: '30px' } : Number(el.ratting) === 0 ? { backgroundColor: 'grey', width: '30px', height: '30px' } : {} },
+                            el.ratting ? el.ratting + ' +' : null,
+                            ' '
                         ),
                         _react2.default.createElement(
                             'button',
@@ -19304,7 +19374,7 @@ var MapDisplay = function (_React$PureComponent) {
     function MapDisplay() {
         var _ref2;
 
-        var _temp2, _this16, _ret2;
+        var _temp2, _this18, _ret2;
 
         _classCallCheck(this, MapDisplay);
 
@@ -19312,21 +19382,21 @@ var MapDisplay = function (_React$PureComponent) {
             args[_key2] = arguments[_key2];
         }
 
-        return _ret2 = (_temp2 = (_this16 = _possibleConstructorReturn(this, (_ref2 = MapDisplay.__proto__ || Object.getPrototypeOf(MapDisplay)).call.apply(_ref2, [this].concat(args))), _this16), _this16.state = {
+        return _ret2 = (_temp2 = (_this18 = _possibleConstructorReturn(this, (_ref2 = MapDisplay.__proto__ || Object.getPrototypeOf(MapDisplay)).call.apply(_ref2, [this].concat(args))), _this18), _this18.state = {
             isMarkerShown: false,
-            markers: _this16.props.list.map(function (el) {
+            markers: _this18.props.list.map(function (el) {
                 return { lat: el.lat, lng: el.lng, id: el.id };
             }),
-            cityLat: _this16.props.city.cityLat,
-            cityLng: _this16.props.city.cityLng
-        }, _this16.delayedShowMarker = function (id) {
+            cityLat: _this18.props.city.cityLat,
+            cityLng: _this18.props.city.cityLng
+        }, _this18.delayedShowMarker = function (id) {
             setTimeout(function () {
-                _this16.setState({ isMarkerShown: true });
+                _this18.setState({ isMarkerShown: true });
             }, 1500);
-        }, _this16.handleMarkerClick = function () {
-            _this16.setState({ isMarkerShown: false });
-            _this16.delayedShowMarker();
-        }, _temp2), _possibleConstructorReturn(_this16, _ret2);
+        }, _this18.handleMarkerClick = function () {
+            _this18.setState({ isMarkerShown: false });
+            _this18.delayedShowMarker();
+        }, _temp2), _possibleConstructorReturn(_this18, _ret2);
     }
 
     _createClass(MapDisplay, [{
@@ -19381,8 +19451,8 @@ var MapComponent = (0, _recompose.compose)((0, _recompose.withProps)({
     );
 });
 
-var Footer = function (_React$Component9) {
-    _inherits(Footer, _React$Component9);
+var Footer = function (_React$Component10) {
+    _inherits(Footer, _React$Component10);
 
     function Footer() {
         _classCallCheck(this, Footer);
