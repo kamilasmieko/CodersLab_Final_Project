@@ -25,7 +25,8 @@ function App(){
             <Router history={hashHistory}>
                 <Route path='/' component={MainTemplate}>
                     <IndexRoute component={Main} />
-                    {/*<Route path='mylist' component={MyList}/>*/}
+                    {/*Contact - this way all the previous search results for a user will be lost*/}
+                    {/*2nd opt - cover main component with pop-up*/}
                     <Route path='contact' component={Contact}/>
                     <Route path='*' component={NotFound} />
                 </Route>
@@ -36,9 +37,9 @@ function App(){
 class MainTemplate extends React.Component{
     render(){
         return <div>
-            {this.props.children}
-            <Footer />
-        </div>
+                    {this.props.children}
+                    <Footer />
+                </div>
     }
 }
 
@@ -47,26 +48,47 @@ class Main extends React.Component{
         super(props);
 
         this.state = {
+            //fetched data with all atr per city
             attrPerCity: null,
+            //selection among 3 types: attractions, playgrounds, baby_changing_st
             type: null,
+            //toogle between min age and show all
             min_age: null,
             showAllAttr: true,
+            //is raining opt
             isRaining: false,
+            //rating selection
+            rating: null,
+            //filtered list
             selectionList: null,
+            //city's lat & lng
             cityLat: null,
             cityLng: null
         }
     }
+
     render(){
         return <div className="background_img" style={{background: "url('src/img/banana_pattern.jpg')no-repeat center /cover"}}>
-                    <MainSearch getCityId={this.getCityId} getAttrType={this.getAttrType} getIsRainingCond={this.getIsRainingCond} getMinAge={this.getMinAge} selectionList={this.state.selectionList} getShowAllAttr={this.setShowAllAttr} />
+
+                    <MainSearch
+                        getCityId={this.setCityId}
+                        getAttrType={this.setAttrType}
+                        getMinAge={this.setMinAge}
+                        getShowAllAttr={this.setShowAllAttr}
+                        getIsRainingCond={this.setIsRainingCond}
+                        getRating={this.setRating}
+                        selectionList={this.state.selectionList}
+                    />
+
                     <DisplayResults list={this.state}/>
                 </div>
     }
-    getCityId = (param) =>{
-        this.AttractionsPerCityId(param);
+
+    setCityId = (cityId) =>{
+        this.AttractionsPerCityId(cityId);
     }
-    getAttrType = (type) =>{
+
+    setAttrType = (type) =>{
         this.setState({
             type: type,
             selectionList: this.getSelectionList(type, this.state.attrPerCity)
@@ -74,7 +96,10 @@ class Main extends React.Component{
     }
 
     AttractionsPerCityId(id){
+
+        console.log("Prosze czekac, laduje wybrane przez ciebie atrakcje ....");
         //zmienic stan na loading
+
         fetch('http://localhost:3000/city/'+ id)
             .then(resp => resp.json())
             .then(data => {
@@ -94,15 +119,22 @@ class Main extends React.Component{
         return null;
     }
 
-    getIsRainingCond = (condition) =>{
+    setIsRainingCond = (condition) =>{
         this.setState({isRaining: condition});
     }
-    getMinAge = (age) =>{
+
+    setMinAge = (age) =>{
         console.log('setMinAge: ', age);
         this.setState({min_age: age});
     }
     setShowAllAttr =(param)=>{
         console.log('showAllAttr: ', param);
+        param? this.setState({showAllAttr: param, min_age: null}) : this.setState({showAllAttr: param});
+    }
+
+    setRating = (rating) =>{
+        console.log('Main: setRating: rating: ', rating);
+        this.setState({rating: rating});
     }
 }
 
@@ -122,20 +154,30 @@ class MainSearch extends React.Component{
                         <img id="img_logo" src="src/img/monkey_logo_text.png" alt="logo" />
                     </div>
 
-                    <CitySearch attractions={this.state.attractions} getCityId={this.getCityId} />
+                    <CitySearch
+                        attractions={this.state.attractions}
+                        getCityId={this.getCityId} />
 
-                    <AttractionsSearch getAttrType={this.getAttrType} style={this.state.isCitySelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
+                    <AttractionsSearch
+                        getAttrType={this.getAttrType}
+                        style={this.state.isCitySelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
 
-                    <ByAgeSearch getMinAge={this.getMinAge} getShowAllAttr={this.getShowAllAttr} selectionList={this.props.selectionList} style={this.state.isAttrSelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
+                    <ByAgeSearch
+                        getMinAge={this.getMinAge}
+                        getShowAllAttr={this.getShowAllAttr}
+                        style={this.state.isAttrSelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
 
-                    {/*<div className="search">*/}
-                        {/*<p> "Najwieksza baza atrakcji i okolicznych placow zabaw. Z nami nie bedziesz sie nudzic nawet gdy padadeszcz!" </p>*/}
-                    {/*</div>*/}
+                    <IsRainingOption
+                        getIsRainingCond={this.getIsRainingCond}
+                        style={this.state.isCitySelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
 
-                    <IsRainingOption getIsRainingCond={this.getIsRainingCond} style={this.state.isCitySelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
+                    <FilterOpt
+                        getRating={this.getRating}
+                        style={this.state.isAttrSelected? {visibility: 'visible'} : {visibility: 'hidden'}}/>
 
                 </div>
     }
+
     componentDidMount() {
         fetch('http://localhost:3000/city')
             .then(resp => resp.json())
@@ -143,22 +185,30 @@ class MainSearch extends React.Component{
                 this.setState({attractions: data})});
 
     }
+
     getCityId = (param) =>{
         typeof(this.props.getCityId) === 'function' && this.props.getCityId(param);
         this.setState({isCitySelected: true});
     }
+
     getAttrType = (param) =>{
         this.state.isCitySelected && (typeof(this.props.getAttrType) === 'function' && this.props.getAttrType(param));
         this.setState({isAttrSelected: true});
     }
+
     getIsRainingCond = (param) =>{
         this.state.isCitySelected && (typeof(this.props.getIsRainingCond) === 'function' && this.props.getIsRainingCond(param));
     }
+
     getMinAge = (param) =>{
         this.state.isAttrSelected && typeof(this.props.getMinAge) === 'function' && this.props.getMinAge(param);
     }
     getShowAllAttr = (param) =>{
         typeof(this.props.getShowAllAttr) === 'function' && this.props.getShowAllAttr(param);
+    }
+
+    getRating = (param) =>{
+        this.state.isAttrSelected && typeof(this.props.getRating) === 'function' && this.props.getRating(param);
     }
 }
 
@@ -167,8 +217,7 @@ class CitySearch extends React.Component{
         super(props);
 
         this.state = {
-            city: null,
-            id: null
+            city: null
         }
     }
     render(){
@@ -184,8 +233,9 @@ class CitySearch extends React.Component{
                     </ul>
                 </div>
     }
+
     setCityId = (city, id) =>{
-        this.setState({city: city, id: id});
+        this.setState({city: city});
         typeof(this.props.getCityId) === 'function' && this.props.getCityId(id);
     }
 }
@@ -206,7 +256,11 @@ class AttractionsSearch extends React.Component{
         return <nav className="search" style={this.props.style}>Czego szukasz?
                     <div>{this.state.selection == null? 'Wybierz z listy' : this.state.selection}</div>
                     <ul>
-                        {this.state.inputs.map((el, i) =><li key={i} value={el.value} onClick={() => this.setAttrType(el.value, el.text)}>{el.text}</li>)}
+                        {this.state.inputs.map((el, i) => <li key={i}
+                                                             value={el.value}
+                                                             onClick={() => this.setAttrType(el.value, el.text)}>
+                                                            {el.text}
+                                                        </li>)}
                     </ul>
                 </nav>
     }
@@ -225,22 +279,44 @@ class ByAgeSearch extends React.Component{
             isChecked: true,
         }
     }
+
     render(){
         return  <div className="search" style={this.props.style}>
-                    <input type="checkbox" value={!this.state.isChecked} onChange={this.handleCheckbox} checked={!this.state.isChecked? true : false} style={{width: '25px', height: '25px'}} /><p> Okresl minimalny wiek pociechy: </p>
+
+                    <input type="checkbox"
+                           value={!this.state.isChecked}
+                           onChange={this.handleCheckbox}
+                           checked={!this.state.isChecked? true : false}
+                           style={{width: '25px', height: '25px'}} />
+                    <p> Okresl minimalny wiek pociechy: </p>
+
                     <div style={this.state.isChecked? {visibility: 'hidden'} : {visibility: 'visible'}}>
-                        <span>Od: </span><input type="range" min="0" max="14" value={this.state.value} onChange={(e) => this.handleSlide(e.target.value)} />
+                        <span>Od: </span><input type="range"
+                                                min="0"
+                                                max="14"
+                                                value={this.state.value}
+                                                onChange={(e) => this.handleSlide(e.target.value)} />
                         <p>od {this.state.value} lat</p>
                     </div>
-                    <input type="checkbox" value={this.state.isChecked} onChange={this.handleCheckbox} checked={this.state.isChecked? true : false} style={{width: '25px', height: '25px'}} /><p>Wszystkie atrakcje</p>
+
+                    <input type="checkbox"
+                           value={this.state.isChecked}
+                           onChange={this.handleCheckbox}
+                           checked={this.state.isChecked? true : false}
+                           style={{width: '25px', height: '25px'}} />
+                    <p>Wszystkie atrakcje</p>
                 </div>
     }
+
     handleSlide = (e) =>{
         this.setState({value: e}, () => this.setState({isChecked: false}));
         typeof(this.props.getMinAge) === 'function' && this.props.getMinAge(e);
     }
-    handleCheckbox = (e) =>{
-        this.setState({isChecked: !this.state.isChecked}, () => typeof(this.props.getShowAllAttr) === 'function' && this.props.getShowAllAttr(this.state.isChecked));
+
+    handleCheckbox = () =>{
+        this.setState({isChecked: !this.state.isChecked},
+            () => typeof(this.props.getShowAllAttr) === 'function' && this.props.getShowAllAttr(this.state.isChecked));
+
         typeof(this.props.getMinAge) === 'function' && this.props.getMinAge(this.state.value);
     }
 }
@@ -248,15 +324,51 @@ class ByAgeSearch extends React.Component{
 class IsRainingOption extends React.Component{
     render(){
         return <div className="search" style={this.props.style}>
-            {/*<button id="search_btn">Szukaj*/}
-            <input type='checkbox' style={{width: '25px', height: '25px'}} onChange={(e) => this.isRaining(e.target.checked)}></input>
-            {/*<img src="src/img/banana.png" alt="banana" />*/}
-            <p>Pada deszcz? </p>
-            <img className="monkey_pic" src="src/img/circus-monkey.png" alt="little_monkey_icon" />
+                    <input type='checkbox'
+                           style={{width: '25px', height: '25px'}}
+                           onChange={(e) => this.isRaining(e.target.checked)}></input>
+                    <p>Pada deszcz? </p>
+                    <img className="monkey_pic" src="src/img/circus-monkey.png" alt="little_monkey_icon" style={{width: '50px', height: '50px'}}/>
         </div>
     }
     isRaining =(e)=>{
         typeof(this.props.getIsRainingCond) === 'function' && this.props.getIsRainingCond(e);
+    }
+}
+
+class FilterOpt extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.state = {
+            inputs: Array(5).fill({}).map((_, i) => ({val: i+1, isChecked: false}))
+        }
+    }
+
+    render(){
+        const inputs = this.state.inputs.map(el=> <div key={el.val}>
+                                                    {el.val === 1? 'wszystkie' : el.val+'+'}
+                                                        <input type="checkbox"
+                                                               value={el.val}
+                                                               onChange={() => this.handleCheckmark(el.val)}
+                                                               checked={el.isChecked}
+                                                               style={{width: '2.5rem', height: '2.5rem'}} />
+                                                </div>);
+
+        return <div style={this.props.style}>
+                    Filrtowanie:
+                    <p>Pokaz atrakcje z ocenami: </p>
+                    {inputs}
+                </div>
+    }
+
+    handleCheckmark = (id) =>{
+        console.log('FilterOpt, setRating, el.val: ', id);
+        this.setState(prevState => ({inputs: prevState.inputs.map(el => ({val: el.val, isChecked: el.val === id}))}),
+            () => this.sendRating(id));
+    }
+    sendRating(val){
+        typeof(this.props.getRating) === 'function' && this.props.getRating(val);
     }
 }
 
@@ -294,7 +406,7 @@ class DisplayResults extends React.Component{
         listToDisplay.sort((a,b) => (b.age_from > a.age_from) ? 1 : ((a.age_from > b.age_from) ? -1 : 0));
 
         return <div>
-                    {!this.props.list.selectionList? null : <FilterOpt setRating={this.setRating}/>}
+                    {/*{!this.props.list.selectionList? null : <FilterOpt setRating={this.setRating}/>}*/}
                     {!this.props.list.selectionList? null : <MapDisplay city={this.props.list} />}
                     {!this.props.list.selectionList? null : <ListDisplay list={listToDisplay}/>}
         </div>
@@ -304,28 +416,6 @@ class DisplayResults extends React.Component{
     }
 }
 
-class FilterOpt extends React.Component{
-    constructor(props){
-        super(props);
-
-        this.state = {
-            inputs: Array(5).fill({}).map((_, i) => ({val: i+1, isChecked: false}))
-        }
-    }
-    render(){
-        const inputs = this.state.inputs.map(el=> <div key={el.val}>{el.val === 1? 'wszystkie' : el.val+'+'}<input type="checkbox" value={el.val} onChange={() => this.setValue(el.val)} checked={el.isChecked} style={{width: '2.5rem', height: '2.5rem'}} /></div>);
-        return <div>Filrtowanie:
-                    <p>Pokaz atrakcje z ocenami: </p>
-                    {inputs}
-                </div>
-    }
-    setValue = (id) =>{
-        this.setState(prevState => ({inputs: prevState.inputs.map(el => ({val: el.val, isChecked: el.val === id}))}), () => this.sendRating(id));
-    }
-    sendRating(val){
-        typeof(this.props.setRating) === 'function' && this.props.setRating(val);
-    }
-}
 
 class ListDisplay extends React.Component{
     render(){
@@ -400,34 +490,25 @@ class MapDisplay extends React.PureComponent {
         super(props);
 
         this.state = {
-            markers: this.props.city.selectionList.map(el => ({id: el.id, position: {lat: Number(el.lat), lng: Number(el.lng)}, text: el.name, isOpen: false})),
+            markers: this.props.city.selectionList.map(el => ({id: el.id, position: {lat: Number(el.lat), lng: Number(el.lng)}, text: el.name, isOpen: false, indoor: el.indoor, age_from: el.age_from})),
+            // markers: this.props.city.selectionList.map(el => ({id: el.id, position: {lat: Number(el.lat), lng: Number(el.lng)}, text: el.name, isOpen: el.indoor})),
             cityLat: this.props.city.cityLat,
-            cityLng: this.props.city.cityLng
+            cityLng: this.props.city.cityLng,
+            isRaining: this.props.city.isRaining
         }
-    }
-
-    componentDidMount() {
-        // this.delayedShowMarker()
     }
 
     componentDidUpdate(prevProps){
         console.log('component Did Update: in if', this.props.city.selectionList.length);
-        // setTimeout(() => {
-
         if(this.props.city.cityLat !== prevProps.city.cityLat || this.props.city.cityLng !== prevProps.city.cityLng){
             console.log('in if', this.props.city.selectionList.length);
             this.setState({
-                markers: this.props.city.selectionList.map(el => ({id: el.id, position: {lat: Number(el.lat), lng: Number(el.lng)}, text: el.name, isOpen: false})),
+                markers: this.props.city.selectionList.map(el => ({id: el.id, position: {lat: Number(el.lat), lng: Number(el.lng)}, text: el.name, isOpen: false, indoor: el.indoor, age_from: el.age_from})),
                 cityLat: this.props.city.cityLat,
-                cityLng: this.props.city.cityLng
+                cityLng: this.props.city.cityLng,
+                isRaining: this.props.city.isRaining
             })
         }
-        // }, 1500)
-
-    }
-
-    delayedShowMarker = () => {
-        //         this.setState(prevState => ({markers: prevState.markers.map(el => ({id: el.id, position: {lat: el.lat, lng: el.lng}, text: el.name, isOpen: false}))}));
     }
 
     handleMarkerClick = (id) => {
