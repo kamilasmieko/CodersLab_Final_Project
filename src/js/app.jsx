@@ -9,7 +9,14 @@ import { Router,
 } from 'react-router';
 import '../scss/main.scss';
 import { compose, withProps } from "recompose";
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import {
+    withScriptjs,
+    withGoogleMap,
+    GoogleMap,
+    Marker,
+    InfoWindow,
+    FaAnchor
+} from "react-google-maps";
 import ReactModal from 'react-modal';
 
 
@@ -60,23 +67,33 @@ class Main extends React.Component{
         this.AttractionsPerCityId(param);
     }
     getAttrType = (type) =>{
-        this.type = type;
-        this.setState({type: this.type});
-        this.setSelectionList(this.type);
+        this.setState({
+            type: type,
+            selectionList: this.getSelectionList(type, this.state.attrPerCity)
+        });
     }
+
     AttractionsPerCityId(id){
         //zmienic stan na loading
         fetch('http://localhost:3000/city/'+ id)
             .then(resp => resp.json())
             .then(data => {
-                this.setState({attrPerCity: data, cityLat: Number(data.lat), cityLng: Number(data.lng)}), this.state.type !== null && this.setSelectionList(this.state.type);
+                this.setState({
+                    attrPerCity: data,
+                    cityLat: Number(data.lat),
+                    cityLng: Number(data.lng),
+                    selectionList: this.getSelectionList(this.state.type, data)
+                })
             });
     }
-    setSelectionList(type){
-        type === 'attractions' && this.setState({selectionList: this.state.attrPerCity.attractions});
-        type === 'playgrounds' && this.setState({selectionList: this.state.attrPerCity.playgrounds});
-        type === 'baby_changing_st' && this.setState({selectionList: this.state.attrPerCity.baby_changing_st});
+
+    getSelectionList(type, attrPerCity){
+        if(type === 'attractions') return attrPerCity.attractions;
+        if(type === 'playgrounds') return attrPerCity.playgrounds;
+        if(type === 'baby_changing_st') return attrPerCity.baby_changing_st;
+        return null;
     }
+
     getIsRainingCond = (condition) =>{
         this.setState({isRaining: condition});
     }
@@ -278,8 +295,8 @@ class DisplayResults extends React.Component{
 
         return <div>
                     {!this.props.list.selectionList? null : <FilterOpt setRating={this.setRating}/>}
+                    {!this.props.list.selectionList? null : <MapDisplay city={this.props.list} />}
                     {!this.props.list.selectionList? null : <ListDisplay list={listToDisplay}/>}
-                    {!this.props.list.selectionList? null : <MapDisplay list={listToDisplay} city={this.props.list} />}
         </div>
     }
     setRating = (param) =>{
@@ -379,43 +396,59 @@ class ExampleApp extends React.Component {
 
 
 class MapDisplay extends React.PureComponent {
-    state = {
-        isMarkerShown: false,
-        markers: this.props.list.map((el) => ({lat: el.lat, lng: el.lng, id: el.id})),
-        cityLat: this.props.city.cityLat,
-        cityLng: this.props.city.cityLng
-    }
+    constructor(props){
+        super(props);
 
-    componentDidMount() {
-        this.delayedShowMarker()
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if(this.props != nextProps) {
-            this.setState({
-                markers: nextProps.list.map(el => ({lat: el.lat, lng: el.lng, id: el.id})),
-                cityLat: nextProps.city.cityLat,
-                cityLng: nextProps.city.cityLng
-            });
+        this.state = {
+            markers: this.props.city.selectionList.map(el => ({id: el.id, position: {lat: Number(el.lat), lng: Number(el.lng)}, text: el.name, isOpen: false})),
+            cityLat: this.props.city.cityLat,
+            cityLng: this.props.city.cityLng
         }
     }
 
-    delayedShowMarker = (id) => {
-        setTimeout(() => {
-            this.setState({ isMarkerShown: true })
-        }, 1500)
+    componentDidMount() {
+        // this.delayedShowMarker()
     }
 
-    handleMarkerClick = () => {
-        this.setState({ isMarkerShown: false })
-        this.delayedShowMarker()
+    componentDidUpdate(prevProps){
+        console.log('component Did Update: in if', this.props.city.selectionList.length);
+        // setTimeout(() => {
+
+        if(this.props.city.cityLat !== prevProps.city.cityLat || this.props.city.cityLng !== prevProps.city.cityLng){
+            console.log('in if', this.props.city.selectionList.length);
+            this.setState({
+                markers: this.props.city.selectionList.map(el => ({id: el.id, position: {lat: Number(el.lat), lng: Number(el.lng)}, text: el.name, isOpen: false})),
+                cityLat: this.props.city.cityLat,
+                cityLng: this.props.city.cityLng
+            })
+        }
+        // }, 1500)
+
+    }
+
+    delayedShowMarker = () => {
+        //         this.setState(prevState => ({markers: prevState.markers.map(el => ({id: el.id, position: {lat: el.lat, lng: el.lng}, text: el.name, isOpen: false}))}));
+    }
+
+    handleMarkerClick = (id) => {
+        console.log('Map Disaplay, marker id: ', id);
+        this.setState(prevState => ({
+            markers: prevState.markers.map(m => {
+                if (m.id === id) {
+                    m.isOpen = true;
+                } else {
+                    m.isOpen = false;
+                }
+                return m;
+            })
+        }));
     }
 
     render() {
         return (
             <MapComponent
-                isMarkerShown={this.state.isMarkerShown}
-                coordinates={this.state}
+                center={this.state}
+                markers={this.state.markers}
                 onMarkerClick={this.handleMarkerClick}
             />
         )
@@ -436,10 +469,20 @@ const MapComponent = compose(
 )((props) =>
     <GoogleMap
         defaultZoom={13}
-        center={{ lat: props.coordinates.cityLat, lng: props.coordinates.cityLng }}>
-        {props.coordinates.isMarkerShown && props.coordinates.markers.map(m => <Marker key={m.id} position={{ lat: Number(m.lat), lng: Number(m.lng) }} onClick={() => props.onMarkerClick(m.id)} />)}
+        center={{ lat: props.center.cityLat, lng: props.center.cityLng }}>
+        {props.markers.map(m => (
+            <Marker key={m.id} onClick={() => props.onMarkerClick(m.id)} position={m.position}>
+                {m.isOpen && (
+                    <InfoWindow>
+                        <div>{m.text}</div>
+                    </InfoWindow>
+                )}
+            </Marker>
+        ))}
     </GoogleMap>
 )
+
+
 
 class MyList extends React.Component{
     render(){
