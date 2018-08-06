@@ -53,8 +53,7 @@ class Main extends React.Component{
             //selection among 3 types: attractions, playgrounds, baby_changing_st
             type: null,
             //toogle between min age and show all
-            min_age: null,
-            showAllAttr: true,
+            min_age: 14,
             //is raining opt
             isRaining: false,
             //rating selection
@@ -124,12 +123,10 @@ class Main extends React.Component{
     }
 
     setMinAge = (age) =>{
-        console.log('setMinAge: ', age);
         this.setState({min_age: age});
     }
     setShowAllAttr =(param)=>{
-        console.log('showAllAttr: ', param);
-        param? this.setState({showAllAttr: param, min_age: null}) : this.setState({showAllAttr: param});
+        param && this.setState({min_age: 14});
     }
 
     setRating = (rating) =>{
@@ -373,46 +370,41 @@ class FilterOpt extends React.Component{
 }
 
 class DisplayResults extends React.Component{
-    constructor(props){
-        super(props);
-
-        this.state = {
-            rating: null
-        }
-    }
     render(){
-        const listToDisplay = [];
+        const listToDisplay = this.props.list.selectionList != null &&
+            this.props.list.selectionList.filter(e => this.props.list.isRaining? this.props.list.isRaining == e.indoor : this.props.list.min_age >= Number(e.age_from) &&
+                e.rating >= this.props.list.rating);
+            // this.props.list.selectionList.filter(e => this.props.list.min_age >= Number(e.age_from) &&
+            //                                         e.rating >= this.props.list.rating);
 
-        if(this.props.list.type === 'baby_changing_st'){
-            listToDisplay.push(...this.props.list.selectionList);
-        }else{
-            this.props.list.selectionList != null && this.props.list.selectionList.forEach((select) => {
-                if(Number(select.age_from) <= this.props.list.min_age){
-                    if(Number(select.rating) >= this.state.rating){
-                        this.props.list.isRaining?
-                            this.props.list.isRaining === select.indoor && listToDisplay.push(select) :
-                            listToDisplay.push(select);
-                    }
-                }else if(this.props.list.min_age == null){
-                    if(Number(select.rating) >= this.state.rating){
-                        this.props.list.isRaining?
-                            this.props.list.isRaining === select.indoor && listToDisplay.push(select) :
-                            listToDisplay.push(select);
-                    }
-                }
-            })
-        }
+        // if(this.props.list.type === 'baby_changing_st'){
+        //     listToDisplay.push(...this.props.list.selectionList);
+        // }else{
+        //     this.props.list.selectionList != null && this.props.list.selectionList.forEach((select) => {
+        //         if(Number(select.age_from) <= this.props.list.min_age){
+        //             if(Number(select.rating) >= this.state.rating){
+        //                 this.props.list.isRaining?
+        //                     this.props.list.isRaining === select.indoor && listToDisplay.push(select) :
+        //                     listToDisplay.push(select);
+        //             }
+        //         }else if(this.props.list.min_age == null){
+        //             if(Number(select.rating) >= this.state.rating){
+        //                 this.props.list.isRaining?
+        //                     this.props.list.isRaining === select.indoor && listToDisplay.push(select) :
+        //                     listToDisplay.push(select);
+        //             }
+        //         }
+        //     })
+        // }
 
-        listToDisplay.sort((a,b) => (b.age_from > a.age_from) ? 1 : ((a.age_from > b.age_from) ? -1 : 0));
+        // listToDisplay.sort((a,b) => (b.age_from > a.age_from) ? 1 : ((a.age_from > b.age_from) ? -1 : 0));
 
         return <div>
+                    {/*{[...listToDisplay]}*/}
                     {/*{!this.props.list.selectionList? null : <FilterOpt setRating={this.setRating}/>}*/}
-                    {!this.props.list.selectionList? null : <MapDisplay city={this.props.list} />}
+                    {/*{!this.props.list.selectionList? null : <MapDisplay city={this.props.list} />}*/}
                     {!this.props.list.selectionList? null : <ListDisplay list={listToDisplay}/>}
         </div>
-    }
-    setRating = (param) =>{
-        this.setState({rating: param});
     }
 }
 
