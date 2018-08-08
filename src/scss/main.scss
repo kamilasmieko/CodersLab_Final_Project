@@ -13,27 +13,33 @@ html{
 }
 
 body{
-  //background: url("./../img/monkey_in_jungle.jpg");
   font-size: 3.2rem;
   font-weight: bold;
   color: $accent_color_br;
 }
 
 .container{
-  background-color: $main_color;
   max-width: 106.4rem;
   margin: 0 auto;
   display: flex;
-  justify-content: flex-start;
   flex-wrap: wrap;
-  //align-items: center;
     .search{
-      width: 35rem;
+      width: 36rem;
       text-shadow: -1px 0 $accent_color_yl;
       display: flex;
       flex-direction: column;
-      &:nth-child(2), &:nth-child(3){
-        margin-top: 11.4rem;
+      &:nth-child(2){
+        margin-top: 15rem;
+        flex-grow: 2;
+        background-color: $accent_color_bl;
+        border-radius: 1rem;
+        padding: 3rem 2.5rem 0 2.5rem;
+        p{
+          text-align: center;
+        }
+      }
+      &:nth-child(3){
+
       }
       #img_logo{
         height: 35rem;
@@ -83,9 +89,9 @@ body{
         }
       }
       &:nth-child(4){
-        flex-grow: 2;
-        padding-right: 7rem;
-        margin: 4rem 0 0 8rem;
+        //flex-grow: 2;
+        //padding-right: 7rem;
+        //margin: 4rem 0 0 8rem;
           p{
             font-family: $hand_writ_font;
             font-size: 2.6rem;
