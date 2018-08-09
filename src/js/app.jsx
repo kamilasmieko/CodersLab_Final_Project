@@ -151,7 +151,7 @@ class MainSearch extends React.Component{
                             <img id="img_logo" src="src/img/monkey_logo_text.png" alt="logo" />
                         </div>
                         <div className="search">
-                            <p>Znajdz najlepsze atrakcje w twojej okolicy, nawet gdy za oknem pada deszcz. </p>
+                            <p>Znajdz najlepsze atrakcje dla dzieci w twojej okolicy, nawet gdy za oknem pada deszcz. </p>
                         </div>
                     </div>
 
@@ -164,14 +164,14 @@ class MainSearch extends React.Component{
                             getAttrType={this.getAttrType}
                             style={this.state.isCitySelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
 
+                        <IsRainingOption
+                            getIsRainingCond={this.getIsRainingCond}
+                            style={this.state.isAttrSelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
+
                         <ByAgeSearch
                             getMinAge={this.getMinAge}
                             getShowAllAttr={this.getShowAllAttr}
                             style={this.state.isAttrSelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
-
-                        <IsRainingOption
-                            getIsRainingCond={this.getIsRainingCond}
-                            style={this.state.isCitySelected? {visibility: 'visible'} : {visibility: 'hidden'}} />
 
                         <FilterOpt
                             getRating={this.getRating}
@@ -226,10 +226,11 @@ class CitySearch extends React.Component{
         if(!this.props.attractions)
             return null;
 
-        let cityList = this.props.attractions.map(c => <li key={c.id} value={c.name} onClick={() => this.setCityId(c.name, c.id)}>{c.name}</li>);
+        let cityList = this.props.attractions.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).map(c => <li key={c.id} value={c.name} onClick={() => this.setCityId(c.name, c.id)}>{c.name}</li>);
 
         return <div className="search"><span>Wybierz miasto:</span>
-                    <div>{this.state.city == null? 'Wybierz miasto' : this.state.city}</div>
+                    <div><img src="/src/img/loupe.png" alt="search_loupe" />
+                        {this.state.city == null? 'Wybierz miasto' : this.state.city}</div>
                     <ul>
                         {cityList}
                     </ul>
@@ -255,8 +256,9 @@ class AttractionsSearch extends React.Component{
         }
     }
     render(){
-        return <nav className="search" style={this.props.style}>Czego szukasz?
-                    <div>{this.state.selection == null? 'Wybierz z listy' : this.state.selection}</div>
+        return <div className="search" style={this.props.style}><span>Czego szukasz?</span>
+                    <div><img src="/src/img/loupe.png" alt="search_loupe" />
+                        {this.state.selection == null? 'Wybierz z listy' : this.state.selection}</div>
                     <ul>
                         {this.state.inputs.map((el, i) => <li key={i}
                                                              value={el.value}
@@ -264,7 +266,7 @@ class AttractionsSearch extends React.Component{
                                                             {el.text}
                                                         </li>)}
                     </ul>
-                </nav>
+                </div>
     }
     setAttrType = (val, selection) =>{
         this.setState({selection: selection});
@@ -285,12 +287,19 @@ class ByAgeSearch extends React.Component{
     render(){
         return  <div className="search" style={this.props.style}>
 
+                    <p>Wszystkie atrakcje: </p>
+                    <input type="checkbox"
+                           value={this.state.isChecked}
+                           onChange={this.handleCheckbox}
+                           checked={this.state.isChecked? true : false}
+                           style={{width: '25px', height: '25px'}} />
+
+                    <p> Okresl wiek pociechy: </p>
                     <input type="checkbox"
                            value={!this.state.isChecked}
                            onChange={this.handleCheckbox}
                            checked={!this.state.isChecked? true : false}
                            style={{width: '25px', height: '25px'}} />
-                    <p> Okresl wiek pociechy: </p>
 
                     <div style={this.state.isChecked? {visibility: 'hidden'} : {visibility: 'visible'}}>
                         <span>Okolo: </span><input type="range"
@@ -303,12 +312,6 @@ class ByAgeSearch extends React.Component{
                             this.state.value >= 2 && this.state.value + ' lat'} </p>
                     </div>
 
-                    <input type="checkbox"
-                           value={this.state.isChecked}
-                           onChange={this.handleCheckbox}
-                           checked={this.state.isChecked? true : false}
-                           style={{width: '25px', height: '25px'}} />
-                    <p>Wszystkie atrakcje</p>
                 </div>
     }
 
@@ -327,12 +330,14 @@ class ByAgeSearch extends React.Component{
 
 class IsRainingOption extends React.Component{
     render(){
-        return <div className="search" style={this.props.style}>
-                    <input type='checkbox'
+        return <div className="search" style={this.props.style}><span>Pada deszcz? </span>
+                    <div>
+                        <input type='checkbox'
                            style={{width: '25px', height: '25px'}}
-                           onChange={(e) => this.isRaining(e.target.checked)}></input>
-                    <p>Pada deszcz? </p>
-                    <img className="monkey_pic" src="src/img/circus-monkey.png" alt="little_monkey_icon" style={{width: '50px', height: '50px'}}/>
+                                      onChange={(e) => this.isRaining(e.target.checked)}></input> <img src="/src/img/rain_cloud.png"
+                                                                                                       alt="rain"
+                                                                                                       style={{width: '3rem', height: '3rem'}} /> Tak
+                    </div>
         </div>
     }
     isRaining =(e)=>{
@@ -359,9 +364,8 @@ class FilterOpt extends React.Component{
                                                                style={{width: '2.5rem', height: '2.5rem'}} />
                                                 </div>);
 
-        return <div style={this.props.style}>
-                    Filrtowanie:
-                    <p>Pokaz atrakcje z ocenami: </p>
+        return <div className="search" style={this.props.style}>
+            <p>Filtruj po ocenie: </p>
                     {inputs}
                 </div>
     }
@@ -562,11 +566,13 @@ class MapDisplay extends React.PureComponent {
 
     render() {
         return (
-            <MapComponent
-                center={this.state}
-                markers={this.state.markers}
-                onMarkerClick={this.handleMarkerClick}
-            />
+            <div>
+                <MapComponent
+                    center={this.state}
+                    markers={this.state.markers}
+                    onMarkerClick={this.handleMarkerClick}
+                />
+            </div>
         )
     }
 }
@@ -577,7 +583,7 @@ const MapComponent = compose(
         // googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
         googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA2sDQZ-36NLlY4iMvoiuQ7mS1n-v8iq2M&v=3.exp&libraries=geometry,drawing,places",
         loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `500px`, width: '150rem'}} />,
+        containerElement: <div style={{height: `500px`, width: '150rem'}} />,
         mapElement: <div style={{ height: `100%` }} />,
     }),
     withScriptjs,

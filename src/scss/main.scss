@@ -13,122 +13,139 @@ html{
 }
 
 body{
-  font-size: 3.2rem;
+  font-size: 2.2rem;
   font-weight: bold;
   color: $accent_color_br;
 }
 
 .container{
+  background-color: rgba(255,255,255,0.3);
   max-width: 106.4rem;
   margin: 0 auto;
   display: flex;
-  flex-wrap: wrap;
+  //first container
+  &:first-of-type{
     .search{
-      width: 36rem;
-      text-shadow: -1px 0 $accent_color_yl;
-      display: flex;
-      flex-direction: column;
+      //div w. paragraph w. text next to logo
       &:nth-child(2){
-        margin-top: 15rem;
+        margin: 11rem 9rem 5rem 0;
         flex-grow: 2;
         background-color: $accent_color_bl;
         border-radius: 1rem;
-        padding: 3rem 2.5rem 0 2.5rem;
+        padding: 2rem 2.5rem;
         p{
           text-align: center;
         }
       }
-      &:nth-child(3){
-
+    }
+  }
+  //second container
+  &:nth-of-type(2){
+    flex-wrap: wrap;
+    .search{
+      height: 25rem;
+      &:first-of-type, &:nth-of-type(3){
+        margin-right: 16rem;
       }
-      #img_logo{
-        height: 35rem;
-        width: 35rem;
+    }
+    .search:last-child {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: -14.7rem;
+      p{
+        color: red;
       }
-      div{
-        color: $accent_color_l_br;
-        background-color: $accent_color_yl;
-        border-radius: 1rem;
-        font-size: 2.3rem;
-        text-align: center;
-        padding: 1rem 0 1.2rem 0;
-        width: 30rem;
-        &:hover{
-          border-radius: 1rem 1rem 0 0;
-         &+ul{
-            display: block;
-          }
+    }
+  }
+  //all divs
+  .search {
+    width: 35rem;
+    text-shadow: -1.5px 0 $accent_color_yl;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 0 2.5rem;
+    #img_logo {
+      height: 28rem;
+      width: 28rem;
+    }
+    //drop-down city & attractions
+    div {
+      color: $accent_color_l_br;
+      background-color: $accent_color_yl;
+      border-radius: 1rem;
+      font-size: 2.2rem;
+      text-align: center;
+      padding: 1rem 0 1.2rem 0;
+      width: 48rem;
+      &:hover + ul {
+        display: block;
+      }
+      //search-lupe & rain
+      img {
+        position: relative;
+        top: 1rem;
+        right: 1rem;
+      }
+    }
+    ul {
+      display: none;
+      margin: -.8rem 0 0 0;
+      &:hover {
+        display: block;
+      }
+    }
+    li {
+      width: 48rem;
+      list-style: none;
+      background-color: $accent_color_yl;
+      font-size: 2.2rem;
+      padding: 1rem 0 .5rem 2.5rem;
+      border-radius: 0;
+      &:last-of-type {
+        border-radius: 0 0 1rem 1rem;
+      }
+      &:hover {
+        background-color: $accent_color_bl;
+        color: $accent_color_yl;
+        text-shadow: 2px 2px $accent_color_br;
+      }
+    }
+    //div - raining selection
+    &:nth-child(3) {
+      margin-top: -1rem;
+      input {
+        position: relative;
+        top: .5rem;
+        right: 3rem;
+      }
+    }
+    //age selection
+    &:nth-child(4) {
+      p {
+        position: relative;
+        left: 4rem;
+      }
+      input {
+        position: relative;
+        &:first-of-type, &:nth-of-type(2) {
+          right: 1rem;
+          bottom: 3rem;
         }
       }
-      ul{
-        display: none;
-        margin: -.8rem 0 0 0;
-        &:hover{
-          display: block;
-        }
-      }
-      li{
-        width: 30rem;
-        list-style: none;
-        background-color: $accent_color_yl;
-        font-size: 2.3rem;
-        padding: 1rem 0 .5rem 2.5rem;
-        border-radius: 0;
-        &:first-of-type{
-          &:hover{
-            border-radius: 0;
-          }
-        }
-        &:last-of-type{
-          border-radius: 0 0 1rem 1rem;
-        }
-        &:hover{
-          background-color: $accent_color_bl;
-          color: $accent_color_yl;
-          text-shadow: 2px 2px $accent_color_br;
-        }
-      }
-      &:nth-child(4){
-        //flex-grow: 2;
-        //padding-right: 7rem;
-        //margin: 4rem 0 0 8rem;
-          p{
-            font-family: $hand_writ_font;
-            font-size: 2.6rem;
-            text-shadow: -1px 0 $accent_color_yl;
-          }
-      }
-      &:last-child{
-        display: flex;
-        flex-direction: column;
-        padding: 2rem 6rem 0 0;
-        #search_btn{
-          font-family: $accent_font;
-          font-size: 3rem;
-          margin-top: 1.75rem;
-          padding: 1rem 5rem;
-          border-radius: 1.5rem;
-          background-color: $accent_color_yl;
-          border: none;
-            img{
-              width: 3.4rem;
-              height: 3.4rem;
-            }
-          &:hover{
-            color: $accent_color_yl;
-            background-color: $accent_color_bl;
-            text-shadow: 2px 2px $accent_color_br;
-            box-shadow: 2px 3px 10px $accent_color_br;
-          }
-        }
-        .monkey_pic{
-          align-self: flex-end;
-          width: 9rem;
-          padding-bottom: 1rem;
+      //age selection: slider
+      div {
+        padding-bottom: .2rem;
+        margin-top: 0;
+        input {
+          top: .5rem;
+          left: 2rem;
         }
       }
     }
+  }
 }
+
 footer{
   background-color: $accent_color_br;
   font-size: 2rem;
