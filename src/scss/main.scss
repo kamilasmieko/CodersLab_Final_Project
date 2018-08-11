@@ -13,7 +13,7 @@ html{
 }
 
 body{
-  font-size: 2.2rem;
+  font-size: 2.1rem;
   font-weight: bold;
   color: $accent_color_br;
 }
@@ -26,120 +26,180 @@ body{
   //first container
   &:first-of-type{
     .search{
+
+      //monkey logo
+      #img_logo {
+        margin-left: 1.5rem;
+        height: 23rem;
+        width: 23rem;
+      }
+
       //div w. paragraph w. text next to logo
       &:nth-child(2){
-        margin: 11rem 9rem 5rem 0;
         flex-grow: 2;
+        margin: 10rem 7rem 3.6rem 4rem;
+        padding: 2rem;
         background-color: $accent_color_bl;
         border-radius: 1rem;
-        padding: 2rem 2.5rem;
         p{
           text-align: center;
         }
       }
     }
   }
-  //second container
+  //second container - main search opt.
   &:nth-of-type(2){
     flex-wrap: wrap;
+    margin-bottom: -4rem;
     .search{
-      height: 25rem;
-      &:first-of-type, &:nth-of-type(3){
-        margin-right: 16rem;
-      }
-    }
-    .search:last-child {
+      width: 47rem;
+      height: 15rem;
+      text-shadow: -1.5px 0 $accent_color_yl;
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-top: -14.7rem;
-      p{
-        color: red;
+      flex-direction: column;
+      margin: 0 0 0 3rem;
+
+      //city and attractions search divs
+      &:first-of-type, &:nth-of-type(3){
+        margin-right: 3.5rem;
+      }
+      //drop-down city and attraction search
+      div {
+        color: $accent_color_l_br;
+        background-color: $accent_color_yl;
+        border-radius: 1rem;
+        text-align: center;
+        padding: 0 0 .7rem 0;
+        &:hover + ul {
+          display: block;
+        }
+        //search-loupe & rain condit. icons
+        img {
+          position: relative;
+          top: .8rem;
+          right: 1rem;
+        }
+      }
+      ul {
+        display: none;
+        margin: -.8rem 0 0 0;
+        z-index: 1;
+        overflow: auto;
+        &:hover {
+          display: block;
+        }
+      }
+      li {
+        list-style: none;
+        background-color: $accent_color_yl;
+        padding: .5rem 0 .5rem 2rem;
+        border-radius: 0;
+        &:last-of-type {
+          border-radius: 0 0 1rem 1rem;
+        }
+        &:hover {
+          background-color: $accent_color_bl;
+          color: $accent_color_yl;
+          text-shadow: 2px 2px $accent_color_br;
+        }
+      }
+
+      //raining selection
+      &:nth-child(3) {
+        input {
+          position: relative;
+          top: .5rem;
+          right: 3rem;
+        }
+      }
+
+      //age selection
+      &:nth-child(4) {
+        p{
+          position: relative;
+          top: .5rem;
+          left: 4rem;
+        }
+        div:first-of-type, div:nth-of-type(2) {
+          width: 2rem;
+          height: 2rem;
+          position: relative;
+          bottom: 2.5rem;
+        }
+        //age selection: slider
+        div:last-of-type {
+          padding-top: 1rem;
+          input {
+            width: 25rem;
+          }
+        }
+      }
+
+      //filter by rating
+      &:last-child{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: -10rem;
+        div{
+          width: 4rem;
+          margin: 0 .5rem;
+          padding: 0.5rem 1rem 0 1rem;
+          &:first-of-type{
+            width: 14rem;
+          }
+          &:nth-of-type(2){
+            color: #ff6600;
+          }
+          &:nth-of-type(3){
+            color: #ffcc00;
+          }
+          &:nth-of-type(4){
+            color: #33cc33;
+          }
+          &:nth-of-type(5){
+            color: #00b33c;
+          }
+        }
       }
     }
   }
-  //all divs
-  .search {
-    width: 35rem;
-    text-shadow: -1.5px 0 $accent_color_yl;
+}
+
+.attr_list{
+  flex-direction: column;
+  padding: 1.5rem;
+  .display_box{
+    background-color: white;
+    box-shadow: .1rem .1rem .8rem .1rem #888888;
     display: flex;
-    flex-direction: column;
-    margin: 0 0 0 2.5rem;
-    #img_logo {
-      height: 28rem;
-      width: 28rem;
-    }
-    //drop-down city & attractions
-    div {
-      color: $accent_color_l_br;
-      background-color: $accent_color_yl;
-      border-radius: 1rem;
-      font-size: 2.2rem;
-      text-align: center;
-      padding: 1rem 0 1.2rem 0;
-      width: 48rem;
-      &:hover + ul {
-        display: block;
+    margin-bottom: .7rem;
+    .box_img{
+      .thumbnail{
+        margin:1rem 1rem 0 1rem;
       }
-      //search-lupe & rain
-      img {
-        position: relative;
-        top: 1rem;
-        right: 1rem;
-      }
-    }
-    ul {
-      display: none;
-      margin: -.8rem 0 0 0;
-      &:hover {
-        display: block;
-      }
-    }
-    li {
-      width: 48rem;
-      list-style: none;
-      background-color: $accent_color_yl;
-      font-size: 2.2rem;
-      padding: 1rem 0 .5rem 2.5rem;
-      border-radius: 0;
-      &:last-of-type {
-        border-radius: 0 0 1rem 1rem;
-      }
-      &:hover {
-        background-color: $accent_color_bl;
-        color: $accent_color_yl;
-        text-shadow: 2px 2px $accent_color_br;
-      }
-    }
-    //div - raining selection
-    &:nth-child(3) {
-      margin-top: -1rem;
-      input {
-        position: relative;
-        top: .5rem;
-        right: 3rem;
-      }
-    }
-    //age selection
-    &:nth-child(4) {
-      p {
-        position: relative;
-        left: 4rem;
-      }
-      input {
-        position: relative;
-        &:first-of-type, &:nth-of-type(2) {
-          right: 1rem;
-          bottom: 3rem;
+      .icons{
+        display: flex;
+        flex-direction: row;
+        img, div, button{
+          margin: 0 2rem 0 0;
+        }
+        >div{
+          background-color: $accent_color_bl;
+          border-radius: 1rem;
+        }
+        button{
+          border-radius: 50%;
         }
       }
-      //age selection: slider
-      div {
-        padding-bottom: .2rem;
-        margin-top: 0;
-        input {
-          top: .5rem;
-          left: 2rem;
+    }
+    .box_text{
+      padding: 1rem;
+      .rating{
+        padding: .5rem 0;
+        //background-color: $accent_color_yl;
+        img{
+          width: 2.5rem;
         }
       }
     }
