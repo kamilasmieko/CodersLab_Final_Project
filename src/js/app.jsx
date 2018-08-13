@@ -388,15 +388,15 @@ class FilterOpt extends React.Component{
 class DisplayResults extends React.Component{
     render(){
         const listToDisplay = this.props.list.type != null &&
-                this.props.list.type == 'baby_changing_st'?
-                    this.props.list.selectionList :
+                // this.props.list.type == 'baby_changing_st'?
+                //     this.props.list.selectionList :
                     this.props.list.selectionList != null
                     && this.props.list.selectionList.filter(e => this.props.list.isRaining?
                         e.indoor == this.props.list.isRaining && this.props.list.min_age >= Number(e.age_from) && e.rating >= this.props.list.rating :
                         e && this.props.list.min_age >= Number(e.age_from) && e.rating >= this.props.list.rating).sort((a,b) => (b.age_from > a.age_from) ? 1 : ((a.age_from > b.age_from) ? -1 : 0));
 
         return <div>
-                    {!this.props.list.selectionList? null : <ListDisplay list={listToDisplay}/>}
+                    {!this.props.list.selectionList? null : <ListDisplay list={listToDisplay} type={this.props.list.type} />}
                     {!this.props.list.selectionList? null : <MapDisplay list={listToDisplay}
                                                                         cityLat={this.props.list.cityLat}
                                                                         cityLng={this.props.list.cityLng}/>}
@@ -427,8 +427,8 @@ class ListDisplay extends React.Component{
                                         <PopUp img={<img className='thumbnail'
                                                          src={el.pictures}
                                                          alt="pic"
-                                                         height='250rem'
-                                                         width='250rem'
+                                                         height='255rem'
+                                                         width='255rem'
                                                          style={{borderRadius: '1rem', cursor: 'pointer'}} />}
                                                attraction={this.props.list[i]} />
                                     </div>
@@ -437,24 +437,31 @@ class ListDisplay extends React.Component{
                                         <PopUp h3={<div style={{cursor: 'pointer', marginTop: '.5rem', fontSize: '2rem'}}><b>{el.name}</b></div>}
                                            attraction={this.props.list[i]} />
                                         <p style={{marginTop: '.2rem'}}>{el.address}, <b>{el.city}</b></p> <br />
-                                        <p style={{color: 'red'}}>{el.date_from == ''? null :
+                                        <p style={{color: 'red'}}><b>{el.date_from === ''? null :
                                             el.date_from == el.date_till? 'Atrakcja dostepna: ' + el.date_from :
-                                                'Attrakcja dostepna od: '+ el.date_from +' do: ' + el.date_till} </p>
+                                                'Attrakcja dostepna od: '+ el.date_from +' do: ' + el.date_till}</b></p>
 
-                                        <p>Wiek, od: <b>{el.age_from} {Number(el.age_from) < 2? 'roku' : 'lat'}</b></p>
+                                        {el.age_from === ''? <p style={{height: '1.6rem'}} />:
+                                            <p>Wiek, od: <b>{el.age_from} {Number(el.age_from) < 2? 'roku' : 'lat'}</b></p>}
 
-                                        <p>Minimalny czas atrakcji: <b>{el.time_min} min</b></p> <br/>
+
+                                        {el.time_min === ''? <p style={{height: '1.6rem'}}> </p> :
+                                            <p>Minimalny czas atrakcji: <b>{el.time_min} min</b></p>}<br />
+
                                         <p>{el.description}</p>
-                                        <PopUp link={
-                                            <a href="" style={{cursor: 'pointer'}}>...czytaj wiecej  </a>}
-                                               attraction={this.props.list[i]} />
+                                        {el.description === ''? null:
+                                            <PopUp link={
+                                                <a href="" style={{cursor: 'pointer'}}>...czytaj wiecej  </a>}
+                                                   attraction={this.props.list[i]} />}
                                         <div>
-                                            <span> lub odwiedz strone: </span>
-                                            <a href={el.website} target="_blank">{el.website}</a>
+                                            {el.website === ''? null :
+                                                <span> lub odwiedz strone: </span>}
+                                            {el.website === ''? <p style={{height: '1.6rem'}}/> :
+                                                <a href={el.website} target="_blank">{el.website}</a>}
                                         </div>
                                         <br />
                                         <hr />
-                                        <div className='icons'>
+                                        <div className='icons' style={el.date_from === ''? {margin: '2rem 0 0 0'} : {}}>
                                             {this.state.elements[i].isSelected? <div className='tooltip'>
                                                                                     <img value={i}
                                                                                          src='src/img/heart.png'
@@ -469,23 +476,24 @@ class ListDisplay extends React.Component{
                                                          onClick={(e) => this.addToFave(e, el.id)}
                                                          style={{cursor: 'pointer'}}/><span className='tooltiptext'>Dodaj do Ulubionych</span></div>}
 
-                                            {el.indoor? <div className='tooltip'>
-                                                            <img src='https://cdn3.iconfinder.com/data/icons/logistics/256/Keep_Dry_Symbol-512.png'
-                                                                 alt='umbrella'
-                                                                 style={{width: '3.5rem', height: '3.5rem'}}  />
-                                                            <span className='tooltiptext'>atrakcja wewnatrz</span>
-                                                        </div>:
-                                                        <div className='tooltip'>
-                                                            <img src='src/img/sun.png'
-                                                                 alt='sun'
-                                                                 style={{width: '4rem', height: '4rem'}} />
-                                                            <span className='tooltiptext'>atrakcja na zewnatrz</span>
-                                                        </div>}
-
-                                            <div className='age tooltip'>
-                                                <span>{el.age_from}+</span>
-                                                <span className='tooltiptext'>Wiek</span>
-                                            </div>
+                                            {this.props.type === 'baby_changing_st'? null :
+                                                el.indoor? <div className='tooltip'>
+                                                        <img src='https://cdn3.iconfinder.com/data/icons/logistics/256/Keep_Dry_Symbol-512.png'
+                                                             alt='umbrella'
+                                                             style={{width: '3.5rem', height: '3.5rem'}}  />
+                                                        <span className='tooltiptext'>atrakcja wewnatrz</span>
+                                                    </div>:
+                                                    <div className='tooltip'>
+                                                        <img src='src/img/sun.png'
+                                                             alt='sun'
+                                                             style={{width: '3.5rem', height: '3.5rem'}} />
+                                                        <span className='tooltiptext'>atrakcja na zewnatrz</span>
+                                                    </div>}
+                                            {el.age_from === ''? null:
+                                                <div className='age tooltip'>
+                                                    <span>{el.age_from}+</span>
+                                                    <span className='tooltiptext'>Wiek</span>
+                                                </div>}
 
                                             <div  className='rating tooltip'>
                                                 <span>Ocena: {el.rating? el.rating + '+' : null}</span>
@@ -497,15 +505,6 @@ class ListDisplay extends React.Component{
                                                                     Number(el.rating) === 5 ? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
                                                                         Number(el.rating) === 0 && null}
                                             </div>
-
-                                            {/*<div style={Number(el.rating) === 1? {backgroundColor: 'red', width: '4rem', height: '3rem'}:*/}
-                                                {/*Number(el.rating) === 2? {backgroundColor: '#ff6600', width: '4rem', height: '3rem'}:*/}
-                                                    {/*Number(el.rating) === 3? {backgroundColor: '#ffcc00', width: '4rem', height: '3rem'}:*/}
-                                                        {/*Number(el.rating) === 4? {backgroundColor: '#33cc33', width: '4rem', height: '3rem'}:*/}
-                                                            {/*Number(el.rating) === 5 ? {backgroundColor: '#00b33c', width: '4rem', height: '3rem'}:*/}
-                                                                {/*Number(el.rating) === 0 ? {backgroundColor: '#b3b3b3', width: '4rem', height: '3rem'}:*/}
-                                                                    {/*{}*/}
-                                            {/*}>{el.rating? el.rating + ' +' : null} </div>*/}
 
                                         </div>
                                     </div>

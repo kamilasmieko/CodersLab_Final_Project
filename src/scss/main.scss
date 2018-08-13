@@ -178,7 +178,7 @@ body{
     box-shadow: .1rem .1rem .8rem .1rem #888888;
     display: flex;
     margin-bottom: .8rem;
-    height: 27rem;
+    height: 27.5rem;
     .box_img{
       .thumbnail{
         margin:1rem 1rem 0 1rem;
@@ -238,19 +238,19 @@ body{
       /* Tooltip text */
       .tooltip .tooltiptext {
         visibility: hidden;
-        width: 120px;
+        width: 12rem;
         background-color: #555;
         color: #fff;
         text-align: center;
-        padding: 5px 0;
-        border-radius: 6px;
+        padding: .5rem 0;
+        border-radius: .6rem;
 
         /* Position the tooltip text */
         position: absolute;
         z-index: 1;
         top: 125%;
         left: 50%;
-        margin-left: -60px;
+        margin-left: -6rem;
 
         /* Fade in tooltip */
         opacity: 0;
@@ -264,8 +264,8 @@ body{
         bottom: 100%;
         left: 50%;
         transform: rotate(180deg);
-        margin-left: -5px;
-        border-width: 5px;
+        margin-left: -.5rem;
+        border-width: .5rem;
         border-style: solid;
         border-color: #555 transparent transparent transparent;
       }
