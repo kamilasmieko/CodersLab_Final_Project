@@ -406,6 +406,14 @@ class DisplayResults extends React.Component{
 
 
 class ListDisplay extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.state = {
+            elements: this.props.list.map(el => ({id: el.id, isSelected: false}))
+        }
+    }
+
     render(){
 
         return <div className="container attr_list" >
@@ -413,66 +421,103 @@ class ListDisplay extends React.Component{
                     {!this.props.list? null :
                         this.props.list.map((el, i) =>
                             <div key={i}>
-                                <div className='display_box'
-                                     style={{fontFamily: "Arial, Helvetica, sans-serif", color: '#595959'}}>
+                                <div className='display_box'>
 
                                     <div className='box_img'>
                                         <PopUp img={<img className='thumbnail'
-                                                        src={el.pictures}
-                                                        alt="pic"
-                                                        height='230px'
-                                                        width='230px'
-                                                        style={{borderRadius: '10px', cursor: 'pointer'}}></img>}
-                                                        attraction={this.props.list[i]} />
-                                        <div className='icons'>
-                                            <img src={el.indoor? 'https://cdn3.iconfinder.com/data/icons/logistics/256/Keep_Dry_Symbol-512.png' :
-                                                'src/img/sun.png'} alt="" style={{width: '35px', height: '35px'}} />
-                                            <div><span>Wiek: </span>{el.age_from}+</div>
-                                            <div style={Number(el.rating) === 1? {backgroundColor: 'red', width: '30px', height: '30px'}:
-                                                    Number(el.rating) === 2? {backgroundColor: '#ff6600', width: '30px', height: '30px'}:
-                                                        Number(el.rating) === 3? {backgroundColor: '#ffcc00', width: '30px', height: '30px'}:
-                                                            Number(el.rating) === 4? {backgroundColor: '#33cc33', width: '30px', height: '30px'}:
-                                                                Number(el.rating) === 5 ? {backgroundColor: '#00b33c', width: '30px', height: '30px'}:
-                                                                    Number(el.rating) === 0 ? {backgroundColor: '#b3b3b3', width: '30px', height: '30px'}:
-                                                                    {}
-                                            }>{el.rating? el.rating + ' +' : null} </div>
-                                            <button value='add_to_list'
-                                                    style={{cursor: 'pointer', width: '2rem'}}>+</button>
-                                        </div>
+                                                         src={el.pictures}
+                                                         alt="pic"
+                                                         height='250rem'
+                                                         width='250rem'
+                                                         style={{borderRadius: '1rem', cursor: 'pointer'}} />}
+                                               attraction={this.props.list[i]} />
                                     </div>
 
                                     <div className='box_text'>
-                                        <PopUp h3={<div style={{cursor: 'pointer', marginTop: '.5rem'}}>{el.name}</div>}
+                                        <PopUp h3={<div style={{cursor: 'pointer', marginTop: '.5rem', fontSize: '2rem'}}><b>{el.name}</b></div>}
                                            attraction={this.props.list[i]} />
-                                        <p style={{fontSize: '1.5rem', marginTop: '.2rem'}}>{el.address}, <b>{el.city}</b></p>
-                                        <div  className='rating'>
-                                            <span style={{fontSize: '1.8rem'}}>Ocena: {el.rating? el.rating + '+' : null}</span>
-
-                                            {Number(el.rating) === 1? <div><img src='src/img/banana.png'></img></div>:
-                                                Number(el.rating) === 2? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img></div>:
-                                                    Number(el.rating) === 3? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img></div>:
-                                                        Number(el.rating) === 4? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img></div>:
-                                                            Number(el.rating) === 5 ? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img></div>:
-                                                                Number(el.rating) === 0 && null}
-                                        </div>
-                                        <p style={{color: 'grey', fontSize: '1.75rem'}}>Wiek: od {el.age_from} {Number(el.age_from) < 2? 'roku' : 'lat'}</p>
-
+                                        <p style={{marginTop: '.2rem'}}>{el.address}, <b>{el.city}</b></p> <br />
                                         <p style={{color: 'red'}}>{el.date_from == ''? null :
                                             el.date_from == el.date_till? 'Atrakcja dostepna: ' + el.date_from :
-                                            'Attrakcja dostepna od: '+ el.date_from +' do: ' + el.date_till} </p>
+                                                'Attrakcja dostepna od: '+ el.date_from +' do: ' + el.date_till} </p>
 
-                                        <p style={{fontSize: '1.75rem'}}>Minimalny czas atrakcji: {el.time_min} min</p> <br/>
-                                        <p style={{fontSize: '1.75rem', fontWeight: 'lighter'}}>{el.description}<PopUp link={<a href="" style={{cursor: 'pointer'}}>...czytaj wiecej</a>}
-                                                                                                      attraction={this.props.list[i]} /></p>
+                                        <p>Wiek, od: <b>{el.age_from} {Number(el.age_from) < 2? 'roku' : 'lat'}</b></p>
 
-                                        <span style={{fontSize: '1.75rem'}}> lub odwiedz strone: </span>
-                                        <a href={el.website} target="_blank" style={{fontSize: '1.5rem'}}>{el.website}</a>
+                                        <p>Minimalny czas atrakcji: <b>{el.time_min} min</b></p> <br/>
+                                        <p>{el.description}</p>
+                                        <PopUp link={
+                                            <a href="" style={{cursor: 'pointer'}}>...czytaj wiecej  </a>}
+                                               attraction={this.props.list[i]} />
+                                        <div>
+                                            <span> lub odwiedz strone: </span>
+                                            <a href={el.website} target="_blank">{el.website}</a>
+                                        </div>
+                                        <br />
+                                        <hr />
+                                        <div className='icons'>
+                                            {this.state.elements[i].isSelected? <div className='tooltip'>
+                                                                                    <img value={i}
+                                                                                         src='src/img/heart.png'
+                                                                                         alt='on_fave_list'
+                                                                                         onClick={(e) => this.addToFave(e, el.id)}
+                                                                                         style={{cursor: 'pointer'}}/>
+                                                                                    <span className='tooltiptext'>na liscie Ulubionych</span></div> :
+                                                <div className='tooltip'>
+                                                    <img value={i}
+                                                         src='src/img/heart_add.png'
+                                                         alt='add_to_list'
+                                                         onClick={(e) => this.addToFave(e, el.id)}
+                                                         style={{cursor: 'pointer'}}/><span className='tooltiptext'>Dodaj do Ulubionych</span></div>}
+
+                                            {el.indoor? <div className='tooltip'>
+                                                            <img src='https://cdn3.iconfinder.com/data/icons/logistics/256/Keep_Dry_Symbol-512.png'
+                                                                 alt='umbrella'
+                                                                 style={{width: '3.5rem', height: '3.5rem'}}  />
+                                                            <span className='tooltiptext'>atrakcja wewnatrz</span>
+                                                        </div>:
+                                                        <div className='tooltip'>
+                                                            <img src='src/img/sun.png'
+                                                                 alt='sun'
+                                                                 style={{width: '4rem', height: '4rem'}} />
+                                                            <span className='tooltiptext'>atrakcja na zewnatrz</span>
+                                                        </div>}
+
+                                            <div className='age tooltip'>
+                                                <span>{el.age_from}+</span>
+                                                <span className='tooltiptext'>Wiek</span>
+                                            </div>
+
+                                            <div  className='rating tooltip'>
+                                                <span>Ocena: {el.rating? el.rating + '+' : null}</span>
+
+                                                    {Number(el.rating) === 1? <div><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
+                                                        Number(el.rating) === 2? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
+                                                            Number(el.rating) === 3? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
+                                                                Number(el.rating) === 4? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
+                                                                    Number(el.rating) === 5 ? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
+                                                                        Number(el.rating) === 0 && null}
+                                            </div>
+
+                                            {/*<div style={Number(el.rating) === 1? {backgroundColor: 'red', width: '4rem', height: '3rem'}:*/}
+                                                {/*Number(el.rating) === 2? {backgroundColor: '#ff6600', width: '4rem', height: '3rem'}:*/}
+                                                    {/*Number(el.rating) === 3? {backgroundColor: '#ffcc00', width: '4rem', height: '3rem'}:*/}
+                                                        {/*Number(el.rating) === 4? {backgroundColor: '#33cc33', width: '4rem', height: '3rem'}:*/}
+                                                            {/*Number(el.rating) === 5 ? {backgroundColor: '#00b33c', width: '4rem', height: '3rem'}:*/}
+                                                                {/*Number(el.rating) === 0 ? {backgroundColor: '#b3b3b3', width: '4rem', height: '3rem'}:*/}
+                                                                    {/*{}*/}
+                                            {/*}>{el.rating? el.rating + ' +' : null} </div>*/}
+
+                                        </div>
                                     </div>
                                 </div>
-                                    <hr/>
                             </div>
                         )}
                             </div>
+    }
+    addToFave = (e, id) =>{
+        console.log(id);
+        console.log(e);
+        this.setState(prevState => ({elements: prevState.elements.map(el => ({id: el.id, isSelected: el.id === id}))}));
     }
 }
 
