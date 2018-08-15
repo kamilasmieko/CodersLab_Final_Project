@@ -172,7 +172,7 @@ body{
   .display_box{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
-    color: #595959;
+    color: $text_color_gr;
     font-size: 1.5rem;
     background-color: white;
     box-shadow: .1rem .1rem .8rem .1rem #888888;
@@ -276,6 +276,16 @@ body{
         opacity: 1;
       }
     }
+  }
+}
+
+//ReactModal - popup window
+.reactModalView{
+  font-weight: lighter;
+  color: $text_color_gr;
+  h3{
+    font-size: 3rem;
+    margin: 1rem 0;
   }
 }
 
