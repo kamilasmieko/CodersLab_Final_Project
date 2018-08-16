@@ -425,18 +425,30 @@ class ListDisplay extends React.Component{
                                 <div className='display_box'>
 
                                     <div className='box_img'>
+
                                         <PopUp img={<img className='thumbnail'
                                                          src={el.main_pic}
                                                          alt="pic"
                                                          height='255rem'
                                                          width='255rem'
                                                          style={{borderRadius: '1rem', cursor: 'pointer'}} />}
-                                               attraction={this.props.list[i]} />
+                                               attraction={this.props.list[i]}
+                                               fave={<Fave value={el.id}
+                                                           onClick={() => this.addToFave(el.id)}
+                                                           isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>
+                                               }/>
+
                                     </div>
 
                                     <div className='box_text'>
+
                                         <PopUp h3={<div style={{cursor: 'pointer', marginTop: '.5rem', fontSize: '2rem'}}><b>{el.name}</b></div>}
-                                           attraction={this.props.list[i]} />
+                                               attraction={this.props.list[i]}
+                                               fave={<Fave value={el.id}
+                                                           onClick={() => this.addToFave(el.id)}
+                                                           isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>
+                                               }/>
+
                                         <p style={{marginTop: '.2rem'}}>{el.address}, <b>{el.city}</b></p> <br />
                                         <p style={{color: 'red'}}><b>{el.date_from === ''? null :
                                             el.date_from == el.date_till? 'Atrakcja dostepna: ' + el.date_from :
@@ -450,10 +462,16 @@ class ListDisplay extends React.Component{
                                             <p>Minimalny czas atrakcji: <b>{el.time_min} min</b></p>}<br />
 
                                         <p>{el.description}</p>
+
                                         {el.description === ''? null:
                                             <PopUp link={
                                                 <a href="" style={{cursor: 'pointer'}}>...czytaj wiecej  </a>}
-                                                   attraction={this.props.list[i]} />}
+                                                   attraction={this.props.list[i]}
+                                                   fave={<Fave value={el.id}
+                                                               onClick={() => this.addToFave(el.id)}
+                                                               isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>}
+                                            />}
+
                                         <div>
                                             {el.website === ''? null :
                                                 <span> lub odwiedz strone: </span>}
@@ -463,19 +481,9 @@ class ListDisplay extends React.Component{
                                         <br />
                                         <hr />
                                         <div className='icons' style={el.date_from === ''? {margin: '2rem 0 0 0'} : {}}>
-                                            {this.state.elements[i].isSelected? <div className='tooltip'>
-                                                                                    <img value={i}
-                                                                                         src='src/img/heart.png'
-                                                                                         alt='on_fave_list'
-                                                                                         onClick={(e) => this.addToFave(el.id)}
-                                                                                         style={{cursor: 'pointer'}}/>
-                                                                                    <span className='tooltiptext'>na liscie Ulubionych</span></div> :
-                                                <div className='tooltip'>
-                                                    <img value={i}
-                                                         src='src/img/heart_add.png'
-                                                         alt='add_to_list'
-                                                         onClick={(e) => this.addToFave(el.id)}
-                                                         style={{cursor: 'pointer'}}/><span className='tooltiptext'>Dodaj do Ulubionych</span></div>}
+                                                <Fave value={el.id}
+                                                      onClick={() => this.addToFave(el.id)}
+                                                      isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>
 
                                             {this.props.type === 'baby_changing_st'? null :
                                                 el.indoor? <div className='tooltip'>
@@ -571,29 +579,26 @@ class PopUp extends React.Component {
                                  key={this.props.attraction.id}
                                  style={{fontFamily: "Arial, Helvetica, sans-serif"}}>
 
+                                <h3 style={{color: 'grey'}}>{this.props.attraction.name}</h3>
+                                <p>{this.props.attraction.address}, <b>{this.props.attraction.city}</b></p>
+                                <p style={{color: 'red'}}><b>{this.props.attraction.date_from === ''? null :
+                                    this.props.attraction.date_from == this.props.attraction.date_till? 'Atrakcja dostepna: ' + this.props.attraction.date_from :
+                                        'Attrakcja dostepna od: '+ this.props.attraction.date_from +' do: ' + this.props.attraction.date_till}</b></p>
+                                <br />
                                 <div className="slideshow-container">
                                     <PicCarusel pictures={this.props.attraction.pictures} />
                                 </div>
                                 <br />
-                                    {/*<div style={{textAlign: 'center'}}>*/}
-                                        {/*<span className="dot" onclick="currentSlide(1)"></span>*/}
-                                        {/*<span className="dot" onclick="currentSlide(2)"></span>*/}
-                                        {/*<span className="dot" onclick="currentSlide(3)"></span>*/}
-                                    {/*</div>*/}
-
-                                <h3 style={{color: 'grey'}}>{this.props.attraction.name}</h3>
-                                <p>{this.props.attraction.address}, <b>{this.props.attraction.city}</b></p> <br />
-                                <p style={{color: 'red'}}><b>{this.props.attraction.date_from === ''? null :
-                                    this.props.attraction.date_from == this.props.attraction.date_till? 'Atrakcja dostepna: ' + this.props.attraction.date_from :
-                                        'Attrakcja dostepna od: '+ this.props.attraction.date_from +' do: ' + this.props.attraction.date_till}</b></p>
-
                                 {this.props.attraction.age_from === ''? <p style={{height: '1.6rem'}} />:
                                     <p>Wiek, od: <b>{this.props.attraction.age_from} {Number(this.props.attraction.age_from) < 2? 'roku' : 'lat'}</b></p>}
 
                                 {this.props.attraction.time_min === ''? <p style={{height: '1.6rem'}}> </p> :
                                     <p>Minimalny czas atrakcji: <b>{this.props.attraction.time_min} min</b></p>}
-
                                     <br />
+
+                                <div className='icons'>
+                                    <div>{this.props.fave}</div>
+                                </div>
 
                             </div>}
 
@@ -623,8 +628,6 @@ class PicCarusel extends React.Component{
                                                      style={this.state.elements[i].isSelected?
                                                                             {display: 'block'} :
                                                                             {display: 'none'}}>
-            <div className="numbertext">{i} / {el.length}</div>
-            {/*<img className="carusel_pic" src={el} alt="attr_pic" style={{backgroundImage: 'url'}} />*/}
             <div className="carusel_pic" style={{backgroundImage: `url(${el})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'contain'}} />
             <div className="text">Caption Text</div>
         </div>)}
@@ -634,16 +637,12 @@ class PicCarusel extends React.Component{
         </div>
     }
     componentDidMount(){
-        console.log('component did mount: PicCarusel');
         this.showSlides(this.state.start);
     }
     showSlides(n){
-        // if (n > this.props.pictures.length-1){
-        //     let nr = 0;
-        //
-        // }
-        n > this.props.pictures.length && this.setState({start: 0}, ()=> this.showSlides(this.state.start));
-        n <= 0 && this.setState({start: this.props.pictures.length}, () => this.showSlides(this.props.pictures.length));
+
+        n > this.props.pictures.length-1 && this.setState({start: 0}, ()=> this.showSlides(0));
+        n < 0 && this.setState({start: this.props.pictures.length}, () => this.showSlides(this.props.pictures.length -1));
 
         this.setState(prevState => ({
             elements: prevState.elements.map(el => ({
@@ -654,6 +653,18 @@ class PicCarusel extends React.Component{
     }
     plusSlides = (val) =>{
         this.setState(prevState => ({start: prevState.start + val}), this.showSlides(this.state.start + val));
+    }
+}
+
+class Fave extends React.Component{
+    render(){
+        return <div className='tooltip'>
+                    <img src={this.props.isSelected? 'src/img/heart.png' : 'src/img/heart_add.png'}
+                         alt={this.props.isSelected? 'on_fave_list' : 'add_to_list'}
+                         onClick={this.props.onClick}
+                         style={{cursor: 'pointer'}}/>
+                    <span className='tooltiptext'>{this.props.isSelected? 'Ulubione' : 'Dodaj'}</span>
+                </div>
     }
 }
 

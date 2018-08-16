@@ -16,7 +16,7 @@
           "lat": "50.42546845677039",
           "lng": "18.84908778551403",
           "main_pic": "https://static.polskieszlaki.pl/zdjecia/wycieczki/2013-10/kopalnia-srebra-w-tarnowskich-gorach-207710.jpg",
-          "pictures": ["https://static.polskieszlaki.pl/zdjecia/wycieczki/2013-10/kopalnia-srebra-w-tarnowskich-gorach-207710.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFgk9_Jyx0umEOjZ3YvQow_nPgGT0D7uOjNBSt3-_bMx5OU-7u5g", "https://pozytywka.com/public/manager/images/KopalniaSrebra_03_2014.jpg", "http://bi.gazeta.pl/im/8a/44/11/z18106250V,Kopalnia-Srebra-w-Tarnowskich-Gorach.jpg", "https://kopalniasrebra.pl/wp-content/themes/smzt/dist/img/offer/offer-03.jpg"],
+          "pictures": ["https://static.polskieszlaki.pl/zdjecia/wycieczki/2013-10/kopalnia-srebra-w-tarnowskich-gorach-207710.jpg", "https://pozytywka.com/public/manager/images/KopalniaSrebra_03_2014.jpg", "http://bi.gazeta.pl/im/8a/44/11/z18106250V,Kopalnia-Srebra-w-Tarnowskich-Gorach.jpg", "https://kopalniasrebra.pl/wp-content/themes/smzt/dist/img/offer/offer-03.jpg", "https://d-nm.ppstatic.pl/kadr/k/r/c2/60/4e6fa912c34c8_o.jpg?1420066800"],
           "indoor": true,
           "age_from": "5",
           "time_min": "120",
@@ -104,7 +104,7 @@
       ],
       "baby_changing_st": [
         {
-          "id": 0,
+          "id": 5,
           "name": "McDonalds przy Stacji BP",
           "date_from": "",
           "city": "Tarnowskie Góry",
@@ -121,7 +121,7 @@
           "rating": "3"
         },
         {
-          "id": 1,
+          "id": 6,
           "name": "Restauracja Sherlock",
           "date_from": "",
           "address": "Rynek 7",
@@ -140,7 +140,7 @@
       ],
       "playgrounds": [
         {
-          "id": 0,
+          "id": 7,
           "date_from": "",
           "address": "Park Miejski",
           "city": "Tarnowskie Góry",
@@ -159,7 +159,7 @@
           "fee": "no"
         },
         {
-          "id": 1,
+          "id": 8,
           "date_from": "",
           "address": "Armii Krajowej 4A",
           "city": "Tarnowskie Góry",
@@ -178,7 +178,7 @@
           "fee": "no"
         },
         {
-          "id": 2,
+          "id": 9,
           "date_from": "",
           "name": "Figle Migle",
           "address": "Lipowa 1",
@@ -207,7 +207,7 @@
       "lng": "18.754106",
       "attractions": [
         {
-          "id": 0,
+          "id": 10,
           "name": "Park Przygód i Atrakcji",
           "date_from": "",
           "date_till": "",
@@ -225,7 +225,7 @@
           "website": "http://www.parkwilkowice.pl/"
         },
         {
-          "id": 1,
+          "id": 11,
           "name": "Sala Zabaw AleLe",
           "date_from": "",
           "date_till": "",
@@ -242,7 +242,7 @@
           "rating": "4",
           "website": "http://www.alele.pl/"
         },        {
-          "id": 2,
+          "id": 12,
           "name": "OŚRODEK TENISOWY W LARYSZOWIE (Minigolf)",
           "date_from": "",
           "date_till": "",
@@ -260,7 +260,7 @@
           "website": "http://www.gramywtenisa.com/"
         },
         {
-          "id": 3,
+          "id": 13,
           "name": "OŚRODEK TENISOWY W LARYSZOWIE (Minigolf)",
           "date_from": "",
           "date_till": "",
@@ -280,7 +280,7 @@
       ],
       "baby_changing_st": [
         {
-          "id": 0,
+          "id": 14,
           "name": "Restauracja Pod Platanami",
           "date_from": "",
           "address": "Księżoleśna 1",
@@ -298,7 +298,7 @@
       ],
       "playgrounds": [
         {
-          "id": 0,
+          "id": 15,
           "date_from": "",
           "name": "Sala Zabaw AleLe",
           "address": "Księżoleśna 1",
@@ -317,7 +317,7 @@
           "fee": "yes"
         },
         {
-          "id": 1,
+          "id": 16,
           "date_from": "",
           "name": "Park Przygód i Atrakcji",
           "address": "Księżoleśna 1",
@@ -343,7 +343,7 @@
       "lng": "18.7808",
       "attractions": [
         {
-          "id": 0,
+          "id": 17,
           "name": "OŚRODEK TENISOWY W LARYSZOWIE (Minigolf)",
           "date_from": "",
           "date_till": "",
@@ -361,7 +361,7 @@
           "website": "http://www.gramywtenisa.com/"
         },
         {
-          "id": 1,
+          "id": 18,
           "name": "OŚRODEK TENISOWY W LARYSZOWIE (Minigolf)",
           "date_from": "",
           "date_till": "",
@@ -379,7 +379,7 @@
           "website": "http://www.gramywtenisa.com/"
         },
         {
-          "id": 2,
+          "id": 19,
           "name": "Park Przygód i Atrakcji",
           "date_from": "",
           "date_till": "",
@@ -397,7 +397,7 @@
           "website": "http://www.parkwilkowice.pl/"
         },
         {
-          "id": 3,
+          "id": 20,
           "name": "Sala Zabaw AleLe",
           "date_from": "",
           "date_till": "",
@@ -417,7 +417,7 @@
       ],
       "baby_changing_st": [
         {
-          "id": 0,
+          "id": 21,
           "name": "Restauracja Pod Platanami",
           "date_from": "",
           "address": "Księżoleśna 1",
@@ -435,7 +435,7 @@
       ],
       "playgrounds": [
         {
-          "id": 0,
+          "id": 22,
           "date_from": "",
           "name": "Sala Zabaw AleLe",
           "address": "Księżoleśna 1",
@@ -454,7 +454,7 @@
           "fee": "yes"
         },
         {
-          "id": 1,
+          "id": 23,
           "date_from": "",
           "name": "Park Przygód i Atrakcji",
           "address": "Księżoleśna 1",
