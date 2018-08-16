@@ -73,7 +73,7 @@
           "lat": "50.437425",
           "lng": "18.808403",
           "main_pic": "https://uml.lodz.pl/files/public/_processed_/a/f/csm_holy1_b739858e1b.png",
-          "pictures": ["http://slaskietrendy.pl/wp-content/uploads/2014/06/festiwal-kolor%C3%B3w-9.jpg", "https://uml.lodz.pl/files/public/_processed_/a/f/csm_holy1_b739858e1b.png", "http://krakow.leaderschool.pl/wp-content/uploads/sites/13/2018/01/festiwal-kolor%C3%B3w-dzieci.jpg", "http://www.warszawa.pl/wp-content/uploads/2014/05/HOLI-ONE_09-790x395.jpg"],
+          "pictures": ["http://slaskietrendy.pl/wp-content/uploads/2014/06/festiwal-kolor%C3%B3w-9.jpg", "http://krakow.leaderschool.pl/wp-content/uploads/sites/13/2018/01/festiwal-kolor%C3%B3w-dzieci.jpg", "http://www.warszawa.pl/wp-content/uploads/2014/05/HOLI-ONE_09-790x395.jpg"],
           "indoor": false,
           "age_from": "5",
           "time_min": "60",
@@ -112,7 +112,7 @@
           "lat": "50.43073106557228",
           "lng": "18.865944743156433",
           "main_pic": "https://monkeybuttdiapers.com/wp-content/uploads/2016/12/little-monkey.png",
-          "pictures": ["https://static.polskieszlaki.pl/zdjecia/wycieczki/2013-10/kopalnia-srebra-w-tarnowskich-gorach-207710.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFgk9_Jyx0umEOjZ3YvQow_nPgGT0D7uOjNBSt3-_bMx5OU-7u5g", "https://pozytywka.com/public/manager/images/KopalniaSrebra_03_2014.jpg", "http://bi.gazeta.pl/im/8a/44/11/z18106250V,Kopalnia-Srebra-w-Tarnowskich-Gorach.jpg", "https://kopalniasrebra.pl/wp-content/themes/smzt/dist/img/offer/offer-03.jpg"],
+          "pictures": "",
           "time_min": "",
           "website": "",
           "age_from": "",
@@ -129,7 +129,7 @@
           "lat": "50.4443563",
           "lng": "18.856361900000024",
           "main_pic": "https://monkeybuttdiapers.com/wp-content/uploads/2016/12/little-monkey.png",
-          "pictures": ["https://static.polskieszlaki.pl/zdjecia/wycieczki/2013-10/kopalnia-srebra-w-tarnowskich-gorach-207710.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFgk9_Jyx0umEOjZ3YvQow_nPgGT0D7uOjNBSt3-_bMx5OU-7u5g", "https://pozytywka.com/public/manager/images/KopalniaSrebra_03_2014.jpg", "http://bi.gazeta.pl/im/8a/44/11/z18106250V,Kopalnia-Srebra-w-Tarnowskich-Gorach.jpg", "https://kopalniasrebra.pl/wp-content/themes/smzt/dist/img/offer/offer-03.jpg"],
+          "pictures": "",
           "time_min": "",
           "website": "",
           "age_from": "",
@@ -147,16 +147,16 @@
           "lat": "50.4405782",
           "lng": "18.84161670000003",
           "main_pic": "https://static.panoramio.com.storage.googleapis.com/photos/original/61600755.jpg",
-          "pictures": ["https://static.polskieszlaki.pl/zdjecia/wycieczki/2013-10/kopalnia-srebra-w-tarnowskich-gorach-207710.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFgk9_Jyx0umEOjZ3YvQow_nPgGT0D7uOjNBSt3-_bMx5OU-7u5g", "https://pozytywka.com/public/manager/images/KopalniaSrebra_03_2014.jpg", "http://bi.gazeta.pl/im/8a/44/11/z18106250V,Kopalnia-Srebra-w-Tarnowskich-Gorach.jpg", "https://kopalniasrebra.pl/wp-content/themes/smzt/dist/img/offer/offer-03.jpg"],
+          "pictures": ["https://static.panoramio.com.storage.googleapis.com/photos/original/61600755.jpg", "http://gzmetropolia.pl/tychy/20170703-powstal-plac-zabaw-dla-dzieci-niepelnosprawnych/02.jpg"],
           "age_from": "1",
           "time_min": "",
           "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto cupiditate excepturi, explicabo magni necessitatibus nesciunt quia quibusdam sed. A adipisci amet.",
           "rating": "3",
           "opinion": "duzy, ale troche juz zniszczony 3 gwiazdki",
-          "gated": "no",
+          "gated": false,
           "indoor": false,
           "website": "",
-          "fee": "no"
+          "fee": false
         },
         {
           "id": 8,
@@ -166,16 +166,16 @@
           "lat": "50.48068630241654",
           "lng": "18.80266696209219",
           "main_pic": "http://tarnowskieg.pl/wp-content/uploads/2017/09/22007465_1519038498155533_8475209728802518298_n-e1507026943821.jpg",
-          "pictures": ["https://static.polskieszlaki.pl/zdjecia/wycieczki/2013-10/kopalnia-srebra-w-tarnowskich-gorach-207710.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFgk9_Jyx0umEOjZ3YvQow_nPgGT0D7uOjNBSt3-_bMx5OU-7u5g", "https://pozytywka.com/public/manager/images/KopalniaSrebra_03_2014.jpg", "http://bi.gazeta.pl/im/8a/44/11/z18106250V,Kopalnia-Srebra-w-Tarnowskich-Gorach.jpg", "https://kopalniasrebra.pl/wp-content/themes/smzt/dist/img/offer/offer-03.jpg"],
+          "pictures": ["http://tarnowskieg.pl/wp-content/uploads/2017/09/22007465_1519038498155533_8475209728802518298_n-e1507026943821.jpg", "https://gwarek.com.pl/images/uploads/aktualnosci/17441/plac__ekran.jpg"],
           "age_from": "1",
           "time_min": "",
           "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto cupiditate excepturi, explicabo magni necessitatibus nesciunt quia quibusdam sed. A adipisci amet.",
           "rating": "5",
           "opinion": "super, nowy plac zabaw i do tegg ogrodzny 4 gwiazdki",
-          "gated": "yes",
+          "gated": true,
           "indoor": false,
           "website": "",
-          "fee": "no"
+          "fee": false
         },
         {
           "id": 9,
@@ -186,7 +186,7 @@
           "lat": "50.44053055591168",
           "lng": "18.860365748405457",
           "main_pic": "https://img.grouponcdn.com/deal/3T8JcobpuJHv97p3JtxM53YAq9FC/3T-2016x1210/v1/c700x420.jpg",
-          "pictures": ["https://static.polskieszlaki.pl/zdjecia/wycieczki/2013-10/kopalnia-srebra-w-tarnowskich-gorach-207710.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFgk9_Jyx0umEOjZ3YvQow_nPgGT0D7uOjNBSt3-_bMx5OU-7u5g", "https://pozytywka.com/public/manager/images/KopalniaSrebra_03_2014.jpg", "http://bi.gazeta.pl/im/8a/44/11/z18106250V,Kopalnia-Srebra-w-Tarnowskich-Gorach.jpg", "https://kopalniasrebra.pl/wp-content/themes/smzt/dist/img/offer/offer-03.jpg"],
+          "pictures": ["https://img.grouponcdn.com/deal/3T8JcobpuJHv97p3JtxM53YAq9FC/3T-2016x1210/v1/c700x420.jpg", "https://d-pt.ppstatic.pl/k/r/1/fe/f4/5a08b407244ff_o.jpg?1510576754", "https://i.ytimg.com/vi/JgqbEUOMrns/maxresdefault.jpg"],
           "age_from": "1",
           "time_min": "60",
           "description": "Sala Zabaw FigleMigle w Tarnowskich Gorach zaprasza rodziny z dziecmi w kazdym wieku",
@@ -194,9 +194,9 @@
           "rating": "4",
           "opinion": "mozna fajnie sie pobawic nawet gdy pada deszcz 4 gwiazdki",
           "website": "https://figle-migle.net/",
-          "gated": "yes",
+          "gated": true,
           "indoor": true,
-          "fee": "yes"
+          "fee": true
         }
       ]
     },
@@ -312,9 +312,9 @@
           "full_description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque explicabo illo ipsam odit possimus sapiente, sunt unde vero voluptatum. Doloribus ducimus ea, esse est magnam minus quidem quo ratione totam! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam commodi cupiditate dolorem ducimus, error fuga magnam mollitia obcaecati officiis perspiciatis possimus quam, qui quibusdam quos rerum tempore ut veritatis voluptatem! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae cumque distinctio doloremque earum eligendi eveniet itaque laudantium nemo nesciunt odio odit, optio possimus quae recusandae rem, repellat reprehenderit, sed velit! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum doloribus eligendi et, eveniet ex fugiat harum, hic molestiae natus nostrum provident quaerat quo sunt, tenetur voluptatem. Inventore nobis porro possimus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, deleniti eius incidunt nihil optio quaerat reprehenderit temporibus. Ducimus obcaecati sunt voluptatibus! Ab doloremque dolorum perspiciatis quam recusandae repellat, repellendus voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto deleniti et expedita illo itaque laudantium magnam, modi neque odit praesentium provident quidem, rem soluta voluptatem voluptatum. Deserunt distinctio ipsa perferendis? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus eaque exercitationem facere hic laborum, maxime possimus quasi quod? Aliquid culpa minima totam. Consectetur culpa deserunt, eveniet ipsam omnis similique sit? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi aperiam aspernatur blanditiis consectetur culpa dolor dolorem esse eveniet, fugiat, inventore natus necessitatibus, non nulla optio sed sunt velit veniam voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores cupiditate dolores eligendi explicabo libero nihil non odio qui quidem recusandae reiciendis sequi, sint soluta ullam ut voluptatem? Consequatur, eos.",
           "rating": "4",
           "website": "http://www.alele.pl/",
-          "gated": "yes",
+          "gated": true,
           "indoor": true,
-          "fee": "yes"
+          "fee": true
         },
         {
           "id": 16,
@@ -331,9 +331,9 @@
           "full_description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto cupiditate excepturi, explicabo magni necessitatibus nesciunt quia quibusdam sed. A adipisci amet beatae culpa, molestiae mollitia necessitatibus perferendis suscipit ullam voluptas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid at aut dignissimos distinctio dolore esse id labore laudantium magnam, nostrum odio praesentium quasi qui quod soluta tempora tenetur veritatis voluptas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aut debitis dolore, fuga illo ipsa iusto molestiae mollitia nobis non quam reiciendis rem, sed sequi suscipit tempore ut vel vero. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque explicabo illo ipsam odit possimus sapiente, sunt unde vero voluptatum. Doloribus ducimus ea, esse est magnam minus quidem quo ratione totam! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam commodi cupiditate dolorem ducimus, error fuga magnam mollitia obcaecati officiis perspiciatis possimus quam, qui quibusdam quos rerum tempore ut veritatis voluptatem! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae cumque distinctio doloremque earum eligendi eveniet itaque laudantium nemo nesciunt odio odit, optio possimus quae recusandae rem, repellat reprehenderit, sed velit! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum doloribus eligendi et, eveniet ex fugiat harum, hic molestiae natus nostrum provident quaerat quo sunt, tenetur voluptatem. Inventore nobis porro possimus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, deleniti eius incidunt nihil optio quaerat reprehenderit temporibus. Ducimus obcaecati sunt voluptatibus! Ab doloremque dolorum perspiciatis quam recusandae repellat, repellendus voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto deleniti et expedita illo itaque laudantium magnam, modi neque odit praesentium provident quidem, rem soluta voluptatem voluptatum. Deserunt distinctio ipsa perferendis? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus eaque exercitationem facere hic laborum, maxime possimus quasi quod? Aliquid culpa minima totam. Consectetur culpa deserunt, eveniet ipsam omnis similique sit? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi aperiam aspernatur blanditiis consectetur culpa dolor dolorem esse eveniet, fugiat, inventore natus necessitatibus, non nulla optio sed sunt velit veniam voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores cupiditate dolores eligendi explicabo libero nihil non odio qui quidem recusandae reiciendis sequi, sint soluta ullam ut voluptatem? Consequatur, eos.",
           "rating": "4",
           "website": "http://www.parkwilkowice.pl/",
-          "gated": "yes",
+          "gated": true,
           "indoor": false,
-          "fee": "yes"
+          "fee": true
         }
       ]
     },{
@@ -449,9 +449,9 @@
           "full_description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque explicabo illo ipsam odit possimus sapiente, sunt unde vero voluptatum. Doloribus ducimus ea, esse est magnam minus quidem quo ratione totam! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam commodi cupiditate dolorem ducimus, error fuga magnam mollitia obcaecati officiis perspiciatis possimus quam, qui quibusdam quos rerum tempore ut veritatis voluptatem! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae cumque distinctio doloremque earum eligendi eveniet itaque laudantium nemo nesciunt odio odit, optio possimus quae recusandae rem, repellat reprehenderit, sed velit! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum doloribus eligendi et, eveniet ex fugiat harum, hic molestiae natus nostrum provident quaerat quo sunt, tenetur voluptatem. Inventore nobis porro possimus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, deleniti eius incidunt nihil optio quaerat reprehenderit temporibus. Ducimus obcaecati sunt voluptatibus! Ab doloremque dolorum perspiciatis quam recusandae repellat, repellendus voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto deleniti et expedita illo itaque laudantium magnam, modi neque odit praesentium provident quidem, rem soluta voluptatem voluptatum. Deserunt distinctio ipsa perferendis? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus eaque exercitationem facere hic laborum, maxime possimus quasi quod? Aliquid culpa minima totam. Consectetur culpa deserunt, eveniet ipsam omnis similique sit? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi aperiam aspernatur blanditiis consectetur culpa dolor dolorem esse eveniet, fugiat, inventore natus necessitatibus, non nulla optio sed sunt velit veniam voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores cupiditate dolores eligendi explicabo libero nihil non odio qui quidem recusandae reiciendis sequi, sint soluta ullam ut voluptatem? Consequatur, eos.",
           "rating": "3",
           "website": "http://www.alele.pl/",
-          "gated": "yes",
+          "gated": true,
           "indoor": true,
-          "fee": "yes"
+          "fee": true
         },
         {
           "id": 23,
@@ -468,9 +468,9 @@
           "full_description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto cupiditate excepturi, explicabo magni necessitatibus nesciunt quia quibusdam sed. A adipisci amet beatae culpa, molestiae mollitia necessitatibus perferendis suscipit ullam voluptas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid at aut dignissimos distinctio dolore esse id labore laudantium magnam, nostrum odio praesentium quasi qui quod soluta tempora tenetur veritatis voluptas. Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aut debitis dolore, fuga illo ipsa iusto molestiae mollitia nobis non quam reiciendis rem, sed sequi suscipit tempore ut vel vero. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque explicabo illo ipsam odit possimus sapiente, sunt unde vero voluptatum. Doloribus ducimus ea, esse est magnam minus quidem quo ratione totam! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam commodi cupiditate dolorem ducimus, error fuga magnam mollitia obcaecati officiis perspiciatis possimus quam, qui quibusdam quos rerum tempore ut veritatis voluptatem! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae cumque distinctio doloremque earum eligendi eveniet itaque laudantium nemo nesciunt odio odit, optio possimus quae recusandae rem, repellat reprehenderit, sed velit! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum doloribus eligendi et, eveniet ex fugiat harum, hic molestiae natus nostrum provident quaerat quo sunt, tenetur voluptatem. Inventore nobis porro possimus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, deleniti eius incidunt nihil optio quaerat reprehenderit temporibus. Ducimus obcaecati sunt voluptatibus! Ab doloremque dolorum perspiciatis quam recusandae repellat, repellendus voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto deleniti et expedita illo itaque laudantium magnam, modi neque odit praesentium provident quidem, rem soluta voluptatem voluptatum. Deserunt distinctio ipsa perferendis? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus eaque exercitationem facere hic laborum, maxime possimus quasi quod? Aliquid culpa minima totam. Consectetur culpa deserunt, eveniet ipsam omnis similique sit? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi aperiam aspernatur blanditiis consectetur culpa dolor dolorem esse eveniet, fugiat, inventore natus necessitatibus, non nulla optio sed sunt velit veniam voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores cupiditate dolores eligendi explicabo libero nihil non odio qui quidem recusandae reiciendis sequi, sint soluta ullam ut voluptatem? Consequatur, eos.",
           "rating": "4",
           "website": "http://www.parkwilkowice.pl/",
-          "gated": "yes",
+          "gated": true,
           "indoor": false,
-          "fee": "yes"
+          "fee": true
         }
       ]
     }

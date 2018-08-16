@@ -416,12 +416,18 @@ class ListDisplay extends React.Component{
     }
 
     render(){
+        return <div>
 
-        return <div className="container attr_list" >
+                {/*<FaveList faves={this.state.listOfSelected} list={this.props.list} />*/}
+
+                <div className="container attr_list" >
+
                 <div>Skrot do mapy</div>
+
                     {!this.props.list? null :
                         this.props.list.map((el, i) =>
                             <div key={i}>
+
                                 <div className='display_box'>
 
                                     <div className='box_img'>
@@ -433,10 +439,12 @@ class ListDisplay extends React.Component{
                                                          width='255rem'
                                                          style={{borderRadius: '1rem', cursor: 'pointer'}} />}
                                                attraction={this.props.list[i]}
-                                               fave={<Fave value={el.id}
-                                                           onClick={() => this.addToFave(el.id)}
-                                                           isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>
-                                               }/>
+                                               type={this.props.type}
+                                               icons={<Icons type={this.props.type}
+                                                             attraction={this.props.list[i]}
+                                                             fave={<Fave value={el.id}
+                                                                         onClick={() => this.addToFave(el.id)}
+                                                                         isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>}/>}/>
 
                                     </div>
 
@@ -444,12 +452,15 @@ class ListDisplay extends React.Component{
 
                                         <PopUp h3={<div style={{cursor: 'pointer', marginTop: '.5rem', fontSize: '2rem'}}><b>{el.name}</b></div>}
                                                attraction={this.props.list[i]}
-                                               fave={<Fave value={el.id}
-                                                           onClick={() => this.addToFave(el.id)}
-                                                           isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>
-                                               }/>
+                                               type={this.props.type}
+                                               icons={<Icons type={this.props.type}
+                                                             attraction={this.props.list[i]}
+                                                             fave={<Fave value={el.id}
+                                                                         onClick={() => this.addToFave(el.id)}
+                                                                         isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>}/>}/>
 
                                         <p style={{marginTop: '.2rem'}}>{el.address}, <b>{el.city}</b></p> <br />
+
                                         <p style={{color: 'red'}}><b>{el.date_from === ''? null :
                                             el.date_from == el.date_till? 'Atrakcja dostepna: ' + el.date_from :
                                                 'Attrakcja dostepna od: '+ el.date_from +' do: ' + el.date_till}</b></p>
@@ -467,60 +478,38 @@ class ListDisplay extends React.Component{
                                             <PopUp link={
                                                 <a href="" style={{cursor: 'pointer'}}>...czytaj wiecej  </a>}
                                                    attraction={this.props.list[i]}
-                                                   fave={<Fave value={el.id}
-                                                               onClick={() => this.addToFave(el.id)}
-                                                               isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>}
-                                            />}
+                                                   type={this.props.type}
+                                                   icons={<Icons type={this.props.type}
+                                                                 attraction={this.props.list[i]}
+                                                                 fave={<Fave value={el.id}
+                                                                             onClick={() => this.addToFave(el.id)}
+                                                                             isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>}/>}/>}
 
                                         <div>
                                             {el.website === ''? null :
-                                                <span> lub odwiedz strone: </span>}
+                                                <span style={{marginLeft: '.5rem'}}> lub odwiedz strone: </span>}
                                             {el.website === ''? <p style={{height: '1.6rem'}}/> :
                                                 <a href={el.website} target="_blank">{el.website}</a>}
                                         </div>
+
                                         <br />
                                         <hr />
+
                                         <div className='icons' style={el.date_from === ''? {margin: '2rem 0 0 0'} : {}}>
-                                                <Fave value={el.id}
+
+                                            <Fave value={el.id}
                                                       onClick={() => this.addToFave(el.id)}
                                                       isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>
 
-                                            {this.props.type === 'baby_changing_st'? null :
-                                                el.indoor? <div className='tooltip'>
-                                                        <img src='https://cdn3.iconfinder.com/data/icons/logistics/256/Keep_Dry_Symbol-512.png'
-                                                             alt='umbrella'
-                                                             style={{width: '3.5rem', height: '3.5rem'}}  />
-                                                        <span className='tooltiptext'>atrakcja wewnatrz</span>
-                                                    </div>:
-                                                    <div className='tooltip'>
-                                                        <img src='src/img/sun.png'
-                                                             alt='sun'
-                                                             style={{width: '3.5rem', height: '3.5rem'}} />
-                                                        <span className='tooltiptext'>atrakcja na zewnatrz</span>
-                                                    </div>}
-                                            {el.age_from === ''? null:
-                                                <div className='age tooltip'>
-                                                    <span>{el.age_from}+</span>
-                                                    <span className='tooltiptext'>Wiek</span>
-                                                </div>}
-
-                                            <div  className='rating tooltip'>
-                                                <span>Ocena: {el.rating? el.rating + '+' : null}</span>
-
-                                                    {Number(el.rating) === 1? <div><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
-                                                        Number(el.rating) === 2? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
-                                                            Number(el.rating) === 3? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
-                                                                Number(el.rating) === 4? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
-                                                                    Number(el.rating) === 5 ? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
-                                                                        Number(el.rating) === 0 && null}
-                                            </div>
+                                            <Icons type={this.props.type} attraction={this.props.list[i]}/>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         )}
-                            </div>
+                        </div>
+                </div>
     }
     addToFave = (id) =>{
         this.state.listOfSelected.indexOf(id) != -1?
@@ -538,6 +527,19 @@ class ListDisplay extends React.Component{
     removeDuplicates(array, index){
         array.splice(index, 1);
         this.setState({listOfSelected: [...array]}, () => this.markFave(this.state.listOfSelected));
+    }
+}
+
+class FaveList extends React.Component{
+    render(){
+        
+        // const listOfFaves = this.props.list !== null &&
+        //     this.props.faves !== null
+
+        return <div>
+            <span>Lista Ulubionych</span>
+            {this.props.faves.map(el => <p key={el}>{this.props.list[`${el}`].name}</p> )}
+        </div>
     }
 }
 
@@ -580,25 +582,62 @@ class PopUp extends React.Component {
                                  style={{fontFamily: "Arial, Helvetica, sans-serif"}}>
 
                                 <h3 style={{color: 'grey'}}>{this.props.attraction.name}</h3>
+
                                 <p>{this.props.attraction.address}, <b>{this.props.attraction.city}</b></p>
+
                                 <p style={{color: 'red'}}><b>{this.props.attraction.date_from === ''? null :
                                     this.props.attraction.date_from == this.props.attraction.date_till? 'Atrakcja dostepna: ' + this.props.attraction.date_from :
                                         'Attrakcja dostepna od: '+ this.props.attraction.date_from +' do: ' + this.props.attraction.date_till}</b></p>
+
                                 <br />
+
                                 <div className="slideshow-container">
-                                    <PicCarusel pictures={this.props.attraction.pictures} />
+
+                                    {this.props.type !== 'baby_changing_st'?
+                                        <PicCarusel pictures={this.props.attraction.pictures} /> :
+                                        null}
+
                                 </div>
+
                                 <br />
+
                                 {this.props.attraction.age_from === ''? <p style={{height: '1.6rem'}} />:
                                     <p>Wiek, od: <b>{this.props.attraction.age_from} {Number(this.props.attraction.age_from) < 2? 'roku' : 'lat'}</b></p>}
+
+                                {this.props.type === 'playgrounds' && this.props.attraction.gated?
+                                    <div style={{marginTop: '.5rem'}}>Ogrodzony: <b>Tak</b></div> :
+                                    <div style={{marginTop: '.5rem'}}>Ogrodzony: <b>Nie</b></div>}
+
+                                {this.props.type === 'playgrounds' && this.props.attraction.fee?
+                                    <div style={{marginTop: '.5rem'}}>Bezplatny: <b>Nie</b></div> :
+                                    <div style={{marginTop: '.5rem'}}>Bezplatny: <b>Tak</b></div>}
 
                                 {this.props.attraction.time_min === ''? <p style={{height: '1.6rem'}}> </p> :
                                     <p>Minimalny czas atrakcji: <b>{this.props.attraction.time_min} min</b></p>}
                                     <br />
 
-                                <div className='icons'>
-                                    <div>{this.props.fave}</div>
+                                <hr />
+
+                                <div>
+                                     {this.props.fave}
+                                     {this.props.icons}</div>
+
+                                <br />
+                                <hr />
+                                <br />
+
+                                <div>
+                                    {this.props.attraction.full_description}
                                 </div>
+
+                                <br />
+                                <div>
+                                    {this.props.attraction.website === ''? null :
+                                        <span> Odwiedz strone: </span>}
+                                    {this.props.attraction.website === ''? <p style={{height: '1.6rem'}}/> :
+                                        <a href={this.props.attraction.website} target="_blank">{this.props.attraction.website}</a>}
+                                </div>
+
 
                             </div>}
 
@@ -628,7 +667,8 @@ class PicCarusel extends React.Component{
                                                      style={this.state.elements[i].isSelected?
                                                                             {display: 'block'} :
                                                                             {display: 'none'}}>
-            <div className="carusel_pic" style={{backgroundImage: `url(${el})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'contain'}} />
+            <div className="carusel_pic"
+                 style={{backgroundImage: `url(${el})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover'}} />
             <div className="text">Caption Text</div>
         </div>)}
 
@@ -665,6 +705,47 @@ class Fave extends React.Component{
                          style={{cursor: 'pointer'}}/>
                     <span className='tooltiptext'>{this.props.isSelected? 'Ulubione' : 'Dodaj'}</span>
                 </div>
+    }
+}
+
+class Icons extends React.Component{
+    render(){
+        return <div className='icons'>
+            {this.props.fave}
+            {this.props.attraction.age_from === ''?
+                null:
+                <div className='age tooltip'>
+                    <span>{this.props.attraction.age_from}+</span>
+                    <span className='tooltiptext'>Wiek</span>
+                </div>}
+
+            {this.props.type === 'baby_changing_st'?
+                null :
+                this.props.attraction.indoor ?
+                    <div className='weather tooltip'>
+                        <img src='https://cdn3.iconfinder.com/data/icons/logistics/256/Keep_Dry_Symbol-512.png'
+                             alt='umbrella'
+                             style={{width: '3.5rem', height: '3.5rem'}}  />
+                        <span className='tooltiptext'>Atrakcja wewnatrz</span>
+                    </div> :
+                    <div className='weather tooltip'>
+                        <img src='src/img/sun.png'
+                             alt='sun'
+                             style={{width: '3.5rem', height: '3.5rem'}} />
+                        <span className='tooltiptext'>Atrakcja na zewnatrz</span>
+                    </div>}
+
+            <div className='rating tooltip'>
+                <span>Ocena: {this.props.attraction.rating? this.props.attraction.rating + '+' : null}</span>
+                {Number(this.props.attraction.rating) === 1? <div><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
+                    Number(this.props.attraction.rating) === 2? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
+                        Number(this.props.attraction.rating) === 3? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
+                            Number(this.props.attraction.rating) === 4? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
+                                Number(this.props.attraction.rating) === 5 ? <div><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><img src='src/img/banana.png'></img><span className='tooltiptext'>Ocena</span></div>:
+                                    Number(this.props.attraction.rating) === 0 && null}
+            </div>
+
+        </div>
     }
 }
 
@@ -751,13 +832,6 @@ const MapComponent = compose(
     </GoogleMap>
 )
 
-
-
-class MyList extends React.Component{
-    render(){
-        return <div>Moja Lista Atrakcji</div>
-    }
-}
 
 class Contact extends React.Component{
     render(){

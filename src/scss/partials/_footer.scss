@@ -1,0 +1,23 @@
+footer{
+  background-color: $accent_color_br;
+  font-size: 2rem;
+  z-index: 2;
+  padding: 1.5rem 0;
+  .container{
+    background-color: $accent_color_br;
+  }
+  a{
+    padding: 1.5rem 3rem 1.55rem 3rem;
+    text-decoration: none;
+    color: $accent_color_yl;
+    &.active{
+      margin-right: -0.8rem;
+      text-shadow: 2px 2px $accent_color_br;
+      background-color: $accent_color_bl;
+    }
+    &:hover{
+      text-shadow: 2px 2px $accent_color_br;
+      background-color: $accent_color_d_bl;
+    }
+  }
+}

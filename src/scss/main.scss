@@ -1,5 +1,9 @@
 @import "modules/colors";
 @import "modules/fonts";
+@import "partials/tooltip";
+@import "partials/reactmodal";
+@import "partials/slideshow";
+@import "partials/footer";
 
 * {
   box-sizing: border-box;
@@ -182,6 +186,10 @@ body{
     .box_img{
       .thumbnail{
         margin:1rem 1rem 0 1rem;
+        width: 25.5rem;
+        height: 25.5rem;
+        border-radius: 1rem;
+        cursor: pointer;
       }
     }
     .box_text{
@@ -199,191 +207,34 @@ body{
           color: $main_color;
         }
       }
-      //strip of icons
-      .icons{
-        clear: both;
-        display: flex;
-        margin: 1.5rem 0 0 0;
-        div, img{
-          margin: 0 1.5rem;
-        }
-      }
-      .rating{
-        img{
-          width: 2.5rem;
-          margin-right: 0;
-        }
-      }
-      .age{
-        background-color: $accent_color_yl;
-        width: 4.5rem;
-        box-shadow: .1rem .1rem .1rem .2rem $accent_color_l_br;
-        border-radius: 1rem;
-        span{
-          position: relative;
-          top: 1.2rem;
-          left: 1.3rem;
-          font-size: 2rem;
-        }
-      }
-      /* Tooltip container */
-      .tooltip {
-        position: relative;
-        display: inline-block;
-        >img{
-          width: 3.5rem;
-          height: 3.5rem;
-        }
-      }
-      /* Tooltip text */
-      .tooltip .tooltiptext {
-        visibility: hidden;
-        width: 12rem;
-        background-color: #555;
-        color: #fff;
-        text-align: center;
-        padding: .5rem 0;
-        border-radius: .6rem;
-
-        /* Position the tooltip text */
-        position: absolute;
-        z-index: 1;
-        top: 125%;
-        left: 50%;
-        margin-left: -6rem;
-
-        /* Fade in tooltip */
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-
-      /* Tooltip arrow */
-      .tooltip .tooltiptext::after {
-        content: "";
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: rotate(180deg);
-        margin-left: -.5rem;
-        border-width: .5rem;
-        border-style: solid;
-        border-color: #555 transparent transparent transparent;
-      }
-
-      /* Show the tooltip text when you mouse over the tooltip container */
-      .tooltip:hover .tooltiptext {
-        visibility: visible;
-        opacity: 1;
-      }
     }
   }
 }
 
-//ReactModal - popup window
-.reactModalView{
-  font-weight: lighter;
-  color: $text_color_gr;
-  width: 85%;
-  h3{
-    font-size: 3rem;
-    margin: 1rem 0;
+//strip of icons
+.icons{
+  clear: both;
+  display: flex;
+  margin: 1.5rem 0 0 0;
+  div, img{
+    margin: 0 1.5rem;
   }
-  .carusel_pic{
-    border-radius: 1rem;
-    width: 100%;
-    height: 63rem;
+}
+.rating{
+  img{
+    width: 2.5rem;
+    margin-right: 0;
   }
-
-  /* Slideshow container */
-  .slideshow-container {
+}
+.age{
+  background-color: $accent_color_yl;
+  width: 4.5rem;
+  box-shadow: .1rem .1rem .1rem .2rem $accent_color_l_br;
+  border-radius: 1rem;
+  span{
     position: relative;
-    margin: 0 auto;
-  }
-
-  /* Hide the images by default */
-  .mySlides {
-    display: none;
-  }
-
-  /* Next & previous buttons */
-  .prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    margin-top: -22px;
-    padding: 16px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-  }
-
-  /* Position the "next button" to the right */
-  .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-  }
-
-  /* On hover, add a black background color with a little bit see-through */
-  .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-  }
-
-  /* Caption text */
-  .text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
-  }
-
-  /* Fading animation */
-  .fade {
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 1.5s;
-    animation-name: fade;
-    animation-duration: 1.5s;
-  }
-
-  @-webkit-keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-
-  @keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
+    top: 1.2rem;
+    left: 1.3rem;
+    font-size: 2rem;
   }
 }
-
-footer{
-  background-color: $accent_color_br;
-  font-size: 2rem;
-  z-index: 2;
-  padding: 1.5rem 0;
-    .container{
-      background-color: $accent_color_br;
-    }
-    a{
-      padding: 1.5rem 3rem 1.55rem 3rem;
-      text-decoration: none;
-      color: $accent_color_yl;
-        &.active{
-          margin-right: -0.8rem;
-          text-shadow: 2px 2px $accent_color_br;
-          background-color: $accent_color_bl;
-        }
-        &:hover{
-          text-shadow: 2px 2px $accent_color_br;
-          background-color: $accent_color_d_bl;
-        }
-    }
-}
-
-
-
