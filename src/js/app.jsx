@@ -48,12 +48,16 @@ class Main extends React.Component{
         super(props);
 
         this.state = {
-            //fetched data with all atr per city
+            //carousel pics
+            banner: null,
+            //carousel caption
+            caption: null,
+            //fetched data with all attr per city
             attrPerCity: null,
             //selection among 3 types: attractions, playgrounds, baby_changing_st
             type: null,
             //toogle between min age and show all
-            min_age: 14,
+            min_age: 12,
             //is raining opt
             isRaining: false,
             //rating selection
@@ -69,18 +73,34 @@ class Main extends React.Component{
     render(){
         return <div className="background_img" style={{background: "url('src/img/banana_pattern.jpg')no-repeat center /cover"}}>
 
-                    <MainSearch
-                        getCityId={this.setCityId}
+            <div id='banner'
+                 className="slideshow-container"
+                 style={{height: '35rem'}}>
+                {!this.state.banner? null : <PicCarousel pictures={this.state.banner}
+                                                         caption={this.state.caption}/>}</div>
+
+            <MainSearch getCityId={this.setCityId}
                         getAttrType={this.setAttrType}
                         getMinAge={this.setMinAge}
                         getShowAllAttr={this.setShowAllAttr}
                         getIsRainingCond={this.setIsRainingCond}
                         getRating={this.setRating}
-                        selectionList={this.state.selectionList}
-                    />
+                        selectionList={this.state.selectionList} />
 
-                    <DisplayResults list={this.state}/>
-                </div>
+            <DisplayResults list={this.state}/>
+
+        </div>
+    }
+
+    componentDidMount() {
+        fetch('http://localhost:3000/city')
+            .then(resp => resp.json())
+            .then(data => {
+                const random = Math.floor(Math.random() * data.length);
+                this.setState({
+                    banner: data[random].attractions.map(el => el.banner_pic),
+                    caption: data[random].attractions.map(el => el.caption_txt)
+                })});
     }
 
     setCityId = (cityId) =>{
@@ -126,7 +146,7 @@ class Main extends React.Component{
         this.setState({min_age: age});
     }
     setShowAllAttr =(param)=>{
-        param && this.setState({min_age: 14});
+        param && this.setState({min_age: 12});
     }
 
     setRating = (rating) =>{
@@ -185,7 +205,6 @@ class MainSearch extends React.Component{
             .then(resp => resp.json())
             .then(data => {
                 this.setState({attractions: data})});
-
     }
 
     getCityId = (param) =>{
@@ -268,6 +287,7 @@ class AttractionsSearch extends React.Component{
                     </ul>
                 </div>
     }
+
     setAttrType = (val, selection) =>{
         this.setState({selection: selection});
         typeof(this.props.getAttrType) === 'function' && this.props.getAttrType(val);
@@ -327,7 +347,7 @@ class ByAgeSearch extends React.Component{
                     <div style={this.state.isChecked? {visibility: 'hidden'} : {visibility: 'visible'}}>
                         <span>Okolo: </span><input type="range"
                                                 min="0"
-                                                max="14"
+                                                max="12"
                                                 value={this.state.value}
                                                 onChange={(e) => this.handleSlide(e.target.value)} />
                         <p>ok. {this.state.value == 0 && this.state.value < 1 ? this.state.value + ' lat' :
@@ -418,7 +438,12 @@ class ListDisplay extends React.Component{
     render(){
         return <div>
 
-                {/*<FaveList faves={this.state.listOfSelected} list={this.props.list} />*/}
+                <PopUp fave={<div className='faves'>
+                                <img src="src/img/heart.png" alt="heart" style={{width: '3.5rem', height: '3.5rem'}}/>
+                                <span>Lista Ulubionych</span></div>}
+                       type='faves'
+                       listOfSelected={this.state.listOfSelected}
+                       attractions={this.props.list}/>
 
                 <div className="container attr_list" >
 
@@ -530,19 +555,6 @@ class ListDisplay extends React.Component{
     }
 }
 
-class FaveList extends React.Component{
-    render(){
-        
-        // const listOfFaves = this.props.list !== null &&
-        //     this.props.faves !== null
-
-        return <div>
-            <span>Lista Ulubionych</span>
-            {this.props.faves.map(el => <p key={el}>{this.props.list[`${el}`].name}</p> )}
-        </div>
-    }
-}
-
 class PopUp extends React.Component {
     constructor () {
         super();
@@ -566,7 +578,7 @@ class PopUp extends React.Component {
     render () {
         return (
             <div>
-                <div onClick={this.handleOpenModal}>{this.props.img} {this.props.h3} {this.props.link}</div>
+                <div onClick={this.handleOpenModal}>{this.props.img} {this.props.h3} {this.props.link} {this.props.fave}</div>
                 <ReactModal
                     isOpen={this.state.showModal}
                     contentLabel="Minimal Modal Example">
@@ -575,8 +587,20 @@ class PopUp extends React.Component {
                             style={{width: '3rem', height: '3rem'}}>X</button>
 
                     <div className="container" style={{background: 'white'}}>
-                        {!this.props.attraction? null:
 
+                        {this.props.type === 'faves'?
+                            <div className='popup_faves'>
+                                <img id="popup_logo" src="src/img/monkey_logo_text.png" alt="logo" />
+
+                                <h2>Lista Ulubionych Atrakcji: </h2>
+                                <br />
+
+                                <div className='reactModalView'>
+                                    {this.props.listOfSelected.map((el,i)=><FaveList key={i} num={el} attr={this.props.attractions[el]}></FaveList>)}
+                                </div>
+
+                            </div> :
+                            !this.props.attraction? null :
                             <div className='reactModalView'
                                  key={this.props.attraction.id}
                                  style={{fontFamily: "Arial, Helvetica, sans-serif"}}>
@@ -594,7 +618,7 @@ class PopUp extends React.Component {
                                 <div className="slideshow-container">
 
                                     {this.props.type !== 'baby_changing_st'?
-                                        <PicCarusel pictures={this.props.attraction.pictures} /> :
+                                        <PicCarousel pictures={this.props.attraction.pictures} caption={null}/> :
                                         null}
 
                                 </div>
@@ -639,7 +663,8 @@ class PopUp extends React.Component {
                                 </div>
 
 
-                            </div>}
+                            </div>
+                        }
 
                     </div>
                 </ReactModal>
@@ -648,7 +673,17 @@ class PopUp extends React.Component {
     }
 }
 
-class PicCarusel extends React.Component{
+class FaveList extends React.Component{
+    render(){
+        const list = Array.prototype.push(this.props.attractions);
+        return <div>
+            {this.props.num} : {this.props.attr.name}
+            {console.log([...list])}
+        </div>
+    }
+}
+
+class PicCarousel extends React.Component{
     constructor(props){
         super(props);
 
@@ -667,10 +702,13 @@ class PicCarusel extends React.Component{
                                                      style={this.state.elements[i].isSelected?
                                                                             {display: 'block'} :
                                                                             {display: 'none'}}>
-            <div className="carusel_pic"
-                 style={{backgroundImage: `url(${el})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover'}} />
-            <div className="text">Caption Text</div>
-        </div>)}
+                <div className="carousel_pic"
+                     style={{backgroundImage: `url(${el})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover'}} />
+
+                {this.props.caption === null? null :
+                    <div className="text"> {this.props.caption[i]} </div>}
+
+                </div>)}
 
             <a className="prev" onClick={() => this.plusSlides(-1)}>&#10094;</a>
             <a className="next" onClick={() => this.plusSlides(1)}>&#10095;</a>
@@ -811,7 +849,7 @@ const MapComponent = compose(
         // googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
         googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA2sDQZ-36NLlY4iMvoiuQ7mS1n-v8iq2M&v=3.exp&libraries=geometry,drawing,places",
         loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{height: `500px`, width: '150rem'}} />,
+        containerElement: <div style={{height: `500px`, width: '150rem', marginBottom: '6rem'}} />,
         mapElement: <div style={{ height: `100%` }} />,
     }),
     withScriptjs,

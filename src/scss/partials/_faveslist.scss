@@ -1,0 +1,28 @@
+//list of faves places
+.faves{
+  cursor: pointer;
+  background-color: #F6F7BD;
+  border: .2rem solid rgba(0,0,0,0.3);
+  width: 27rem;
+  height: 6rem;
+  border-radius: 1rem;
+  position: absolute;
+  top: 38rem;
+  right: 7rem;
+
+}
+#popup_logo{
+  width: 18rem;
+  height: 18rem;
+  //float: left;
+}
+
+.popup_faves{
+  //width: 100%;
+  h2{
+    //position: relative;
+    //top: 14rem;
+    //left: 2rem;
+  }
+
+}
