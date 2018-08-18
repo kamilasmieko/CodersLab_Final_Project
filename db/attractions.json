@@ -151,6 +151,7 @@
       "playgrounds": [
         {
           "id": 7,
+          "name": "Plac Zabaw w Parku Miejskim",
           "date_from": "",
           "address": "Park Miejski",
           "city": "Tarnowskie Góry",
@@ -170,7 +171,7 @@
         },
         {
           "id": 8,
-          "date_from": "",
+          "date_from": "Plac Zabaw przy Armii Krajowej 4A (Strzybnica)",
           "address": "Armii Krajowej 4A",
           "city": "Tarnowskie Góry",
           "lat": "50.48068630241654",

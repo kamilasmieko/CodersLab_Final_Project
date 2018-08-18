@@ -431,7 +431,8 @@ class ListDisplay extends React.Component{
 
         this.state = {
             elements: this.props.list.map(el => ({id: el.id, isSelected: false})),
-            listOfSelected: []
+            listOfSelected: [],
+            listOfSelAttr: []
         }
     }
 
@@ -443,6 +444,7 @@ class ListDisplay extends React.Component{
                                 <span>Lista Ulubionych</span></div>}
                        type='faves'
                        listOfSelected={this.state.listOfSelected}
+                       listOfSelAttr={this.state.listOfSelAttr}
                        attractions={this.props.list}/>
 
                 <div className="container attr_list" >
@@ -523,7 +525,7 @@ class ListDisplay extends React.Component{
                                         <div className='icons' style={el.date_from === ''? {margin: '2rem 0 0 0'} : {}}>
 
                                             <Fave value={el.id}
-                                                      onClick={() => this.addToFave(el.id)}
+                                                      onClick={() => this.addToFave(el.id, this.props.list[i])}
                                                       isSelected={this.state.listOfSelected.indexOf(el.id) > -1}/>
 
                                             <Icons type={this.props.type} attraction={this.props.list[i]}/>
@@ -536,11 +538,19 @@ class ListDisplay extends React.Component{
                         </div>
                 </div>
     }
-    addToFave = (id) =>{
+    addToFave = (id, attr) =>{
+
+        console.log(attr);
+
         this.state.listOfSelected.indexOf(id) != -1?
             this.removeDuplicates(this.state.listOfSelected, this.state.listOfSelected.indexOf(id)) :
             this.setState(prevState => ({listOfSelected: [...prevState.listOfSelected, id]}),
                 () => this.markFave(this.state.listOfSelected));
+
+        this.state.listOfSelAttr.indexOf(attr) != -1?
+            this.removeDuplicates2(this.state.listOfSelAttr, this.state.listOfSelAttr.indexOf(attr)):
+            this.setState(prevState => ({listOfSelAttr: [...prevState.listOfSelAttr, attr]}));
+
     }
     markFave(array){
         console.log([...array]);
@@ -552,6 +562,10 @@ class ListDisplay extends React.Component{
     removeDuplicates(array, index){
         array.splice(index, 1);
         this.setState({listOfSelected: [...array]}, () => this.markFave(this.state.listOfSelected));
+    }
+    removeDuplicates2(array, index){
+        array.splice(index, 1);
+        this.setState({listOfSelAttr: [...array]});
     }
 }
 
@@ -591,12 +605,15 @@ class PopUp extends React.Component {
                         {this.props.type === 'faves'?
                             <div className='popup_faves'>
                                 <img id="popup_logo" src="src/img/monkey_logo_text.png" alt="logo" />
-
                                 <h2>Lista Ulubionych Atrakcji: </h2>
                                 <br />
 
                                 <div className='reactModalView'>
-                                    {this.props.listOfSelected.map((el,i)=><FaveList key={i} num={el} attr={this.props.attractions[el]}></FaveList>)}
+                                    <table>
+                                        <tbody>
+                                            {this.props.listOfSelAttr.map((el,i)=><FaveList key={i} attr={el}/>)}
+                                        </tbody>
+                                    </table>
                                 </div>
 
                             </div> :
@@ -675,11 +692,14 @@ class PopUp extends React.Component {
 
 class FaveList extends React.Component{
     render(){
-        const list = Array.prototype.push(this.props.attractions);
-        return <div>
-            {this.props.num} : {this.props.attr.name}
-            {console.log([...list])}
-        </div>
+        return <tr className='myList'>
+                    <td><img className='attr_pic' src={this.props.attr.main_pic} alt="attraction_pic"/></td>
+                    <td><div className='attr_title' style={{}}>{this.props.attr.name}</div></td>
+                    <td><Icons attraction={this.props.attr}/></td>
+        </tr>
+    }
+    componentDidMount(){
+        console.log('FaveList');
     }
 }
 

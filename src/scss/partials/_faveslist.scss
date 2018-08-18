@@ -18,11 +18,26 @@
 }
 
 .popup_faves{
-  //width: 100%;
-  h2{
-    //position: relative;
-    //top: 14rem;
-    //left: 2rem;
-  }
 
+}
+
+.myList{
+  .attr_pic{
+    width: 20rem;
+    height: 15rem;
+  }
+  td{
+    font-family: $basic_font;
+    width: 33%;
+    height: 15rem;
+    .icons{
+      align-items: center;
+    }
+    .age{
+      height: 4.5rem;
+    }
+    .rating{
+      width: 23rem;
+    }
+  }
 }
