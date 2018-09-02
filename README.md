@@ -1,4 +1,4 @@
-Ale Frajda! - CodersLab Final Project
+#Ale Frajda! - CodersLab Final Project
 
 The current status of the application
 This application is still a work in-progress as I am planning on adding additional functionality (e.g. sorting by the length of the attraction, more information under a map component, comment and rating option for app users etc.). 
